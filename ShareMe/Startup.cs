@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShareMe.Core;
 using ShareMe.Data;
-using ShareMe.Models;
+using ShareMe.Core.Models;
 using ShareMe.Services;
 
 namespace ShareMe
@@ -25,11 +25,11 @@ namespace ShareMe
 		{
 			services.AddDbContext<ShareMeDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
-				.AddDbContext<ApplicationDbContext>(options =>
+				.AddDbContext<IdentityDbContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddEntityFrameworkStores<IdentityDbContext>()
 				.AddDefaultTokenProviders();
 
 			// Add application services.

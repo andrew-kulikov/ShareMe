@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using ShareMe.Models;
+using ShareMe.Core.Models;
 using ShareMe.Models.ManageViewModels;
 using ShareMe.Services;
 
