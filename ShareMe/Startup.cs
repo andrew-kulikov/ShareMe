@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using ShareMe.Core;
-using ShareMe.Data;
 using ShareMe.Core.Models;
 using ShareMe.Services;
+using System.Text;
 
 namespace ShareMe
 {
@@ -24,13 +25,33 @@ namespace ShareMe
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<ShareMeDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
-				.AddDbContext<IdentityDbContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<IdentityDbContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddIdentity<ApplicationUser, IdentityRole>()
+			services.AddIdentity<AspNetUsers, IdentityRole>()
 				.AddEntityFrameworkStores<IdentityDbContext>()
 				.AddDefaultTokenProviders();
+
+			services.AddAuthentication()
+				.AddCookie(options =>
+				{
+					options.LoginPath = "/Account/Login/";
+
+				})
+				.AddJwtBearer(cfg =>
+				{
+					cfg.RequireHttpsMetadata = false;
+					cfg.SaveToken = true;
+
+					cfg.TokenValidationParameters = new TokenValidationParameters()
+					{
+						ValidIssuer = Configuration["Tokens:Issuer"],
+						ValidAudience = Configuration["Tokens:Issuer"],
+						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+					};
+
+				});
 
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
@@ -55,6 +76,8 @@ namespace ShareMe
 			app.UseStaticFiles();
 
 			app.UseAuthentication();
+
+		
 
 			app.UseMvc(routes =>
 			{

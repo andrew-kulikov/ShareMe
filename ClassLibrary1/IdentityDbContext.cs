@@ -4,9 +4,9 @@ using ShareMe.Core.Models;
 
 namespace ShareMe.Core
 {
-	public class IdentityDbContext : IdentityDbContext<ApplicationUser>
+	public class IdentityDbContext : IdentityDbContext<AspNetUsers>
 	{
-		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+		public DbSet<AspNetUsers> ApplicationUsers { get; set; }
 
 		public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
 			: base(options)

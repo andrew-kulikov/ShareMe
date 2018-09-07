@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ShareMe.Core.Models;
 
 namespace ShareMe.Core
 {
@@ -13,5 +14,7 @@ namespace ShareMe.Core
 			// For example, you can rename the ASP.NET Identity table names and more.
 			// Add your customizations after calling base.OnModelCreating(builder);
 		}
+
+		public DbSet<Photo> Photos { get; set; }
 	}
 }

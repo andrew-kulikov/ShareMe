@@ -22,4 +22,8 @@
     <ProjectReference Include="..\ClassLibrary1\ShareMe.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

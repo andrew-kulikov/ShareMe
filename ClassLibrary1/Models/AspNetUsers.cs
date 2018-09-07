@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ShareMe.Core.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class AspNetUsers : IdentityUser
     {
     }
 }

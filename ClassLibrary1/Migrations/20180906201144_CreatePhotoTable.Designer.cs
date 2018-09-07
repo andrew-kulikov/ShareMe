@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShareMe.Core;
 
 namespace ShareMe.Core.Migrations
 {
     [DbContext(typeof(ShareMeDbContext))]
-    partial class ShareMeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180906201144_CreatePhotoTable")]
+    partial class CreatePhotoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,14 +65,11 @@ namespace ShareMe.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000);
+                    b.Property<string>("Description");
 
-                    b.Property<string>("Url")
-                        .IsRequired();
+                    b.Property<string>("Url");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -83,8 +82,7 @@ namespace ShareMe.Core.Migrations
                 {
                     b.HasOne("ShareMe.Core.Models.AspNetUsers", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
