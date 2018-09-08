@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ShareMe.Core.Models.Photo>
+
+@{
+	ViewData["Title"] = "Photos";
+}
+
+
+<h2>Photos</h2>
+@if (Model != null)
+{
+	<div class="photos">
+		@foreach (var photo in Model)
+		{
+			<div class="photo-container">
+				<img class="photo" src="@photo.Url" alt="Photo"/>
+			</div>
+		}
+	</div>
+}
+

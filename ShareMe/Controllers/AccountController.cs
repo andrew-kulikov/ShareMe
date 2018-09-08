@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ShareMe.Core.Models;
-using ShareMe.Models.AccountViewModels;
+using ShareMe.ViewModels.AccountViewModels;
 using ShareMe.Services;
 
 namespace ShareMe.Controllers
@@ -20,14 +20,14 @@ namespace ShareMe.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<AspNetUsers> _userManager;
+        private readonly SignInManager<AspNetUsers> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<AspNetUsers> userManager,
+            SignInManager<AspNetUsers> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
@@ -220,7 +220,7 @@ namespace ShareMe.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new AspNetUsers { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -310,7 +310,7 @@ namespace ShareMe.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new AspNetUsers { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
