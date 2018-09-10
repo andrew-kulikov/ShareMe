@@ -24,5 +24,6 @@ namespace ShareMe.Core.Models
 		public string UserId { get; set; }
 
 		public ICollection<PhotoTag> Tags { get; set; }
+		public ICollection<Rating> Ratings { get; set; }
 	}
 }

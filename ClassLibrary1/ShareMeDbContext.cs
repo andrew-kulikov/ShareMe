@@ -22,7 +22,12 @@ namespace ShareMe.Core
 				.HasMany(u => u.Followings)
 				.WithOne(f => f.Follower)
 				.OnDelete(DeleteBehavior.Restrict);
-				
+
+			builder.Entity<Photo>()
+				.HasMany(u => u.Ratings)
+				.WithOne(r => r.Photo)
+				.OnDelete(DeleteBehavior.Restrict);
+
 
 			base.OnModelCreating(builder);
 		}
