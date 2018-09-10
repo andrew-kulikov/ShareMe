@@ -1,13 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using ShareMe.Core;
 using ShareMe.Core.Models;
 using ShareMe.Services;
 using ShareMe.ViewModels.PhotoViewModels;
+using System.Threading.Tasks;
 
 namespace ShareMe.Controllers
 {
@@ -49,6 +45,13 @@ namespace ShareMe.Controllers
 			_photoService.AddPhoto(photo);
 
 			return RedirectToAction("Index", "Home");
+		}
+
+		[Route("id:int")]
+		public ActionResult Details(int id)
+		{
+			var photo = _photoService.GetPhoto(id);
+			return View(photo);
 		}
 	}
 }

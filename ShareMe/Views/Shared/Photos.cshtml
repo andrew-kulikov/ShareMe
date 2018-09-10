@@ -11,9 +11,11 @@
 	<div class="photos">
 		@foreach (var photo in Model)
 		{
-			<div class="photo-container" style="background-image: url('@photo.Url');">
-				<a asp-controller="Photos" asp-action="Details" />
-			</div>
+			
+			<a href="@Url.Action("Details", "Photos", new { id = photo.Id })" class="photo-container" 
+			   style="background-image: url('@photo.Url');">
+			
+			</a>
 		}
 	</div>
 }
