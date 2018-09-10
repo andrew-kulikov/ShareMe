@@ -2,7 +2,7 @@
 
 namespace ShareMe.Core.Migrations
 {
-    public partial class RenameUserIdentity : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

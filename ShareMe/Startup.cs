@@ -30,11 +30,8 @@ namespace ShareMe
 			services.AddDbContext<ShareMeDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddDbContext<IdentityDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
 			services.AddIdentity<AspNetUsers, IdentityRole>()
-				.AddEntityFrameworkStores<IdentityDbContext>()
+				.AddEntityFrameworkStores<ShareMeDbContext>()
 				.AddDefaultTokenProviders();
 
 			services.AddAuthentication()

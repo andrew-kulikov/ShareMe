@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShareMe.Core;
 
-namespace ShareMe.Core.Migrations.IdentityDb
+namespace ShareMe.Core.Migrations
 {
     [DbContext(typeof(ShareMeDbContext))]
-    [Migration("20180906201843_RenameUserIdentity")]
-    partial class RenameUserIdentity
+    [Migration("20180910192303_NewMigration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,6 +182,43 @@ namespace ShareMe.Core.Migrations.IdentityDb
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("ShareMe.Core.Models.Following", b =>
+                {
+                    b.Property<string>("FolloweeId");
+
+                    b.Property<string>("FollowerId");
+
+                    b.Property<int>("Id");
+
+                    b.HasKey("FolloweeId", "FollowerId");
+
+                    b.HasIndex("FollowerId");
+
+                    b.ToTable("Followings");
+                });
+
+            modelBuilder.Entity("ShareMe.Core.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Url")
+                        .IsRequired();
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -222,6 +259,27 @@ namespace ShareMe.Core.Migrations.IdentityDb
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.HasOne("ShareMe.Core.Models.AspNetUsers")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ShareMe.Core.Models.Following", b =>
+                {
+                    b.HasOne("ShareMe.Core.Models.AspNetUsers", "Followee")
+                        .WithMany("Followers")
+                        .HasForeignKey("FolloweeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ShareMe.Core.Models.AspNetUsers", "Follower")
+                        .WithMany("Followings")
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("ShareMe.Core.Models.Photo", b =>
+                {
+                    b.HasOne("ShareMe.Core.Models.AspNetUsers", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
