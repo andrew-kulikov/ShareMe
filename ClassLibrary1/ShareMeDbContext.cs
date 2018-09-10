@@ -28,6 +28,11 @@ namespace ShareMe.Core
 				.WithOne(r => r.Photo)
 				.OnDelete(DeleteBehavior.Restrict);
 
+			builder.Entity<Photo>()
+				.HasMany(u => u.Comments)
+				.WithOne(r => r.Photo)
+				.OnDelete(DeleteBehavior.Restrict);
+
 
 			base.OnModelCreating(builder);
 		}

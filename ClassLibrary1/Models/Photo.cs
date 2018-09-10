@@ -8,6 +8,8 @@ namespace ShareMe.Core.Models
 		public Photo()
 		{
 			Tags = new HashSet<PhotoTag>();
+			Ratings = new HashSet<Rating>();
+			Comments = new HashSet<Comment>();
 		}
 
 		public int Id { get; set; }
@@ -25,5 +27,6 @@ namespace ShareMe.Core.Models
 
 		public ICollection<PhotoTag> Tags { get; set; }
 		public ICollection<Rating> Ratings { get; set; }
+		public ICollection<Comment> Comments { get; set; }
 	}
 }
