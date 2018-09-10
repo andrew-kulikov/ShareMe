@@ -9,32 +9,26 @@ using ShareMe.ViewModels;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ShareMe.Services;
 
 namespace ShareMe.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ShareMeDbContext _context;
-		private readonly UserManager<AspNetUsers> _userManager;
-		private IConfiguration _configuration;
+		private readonly IPhotoService _photoService;
+		private readonly IUserService _userService;
 
-		public HomeController(UserManager<AspNetUsers> userManager, IConfiguration configuration)
+		public HomeController(IPhotoService photoService, IUserService userService)
 		{
-			_configuration = configuration;
-
-			var optionsBuilder = new DbContextOptionsBuilder<ShareMeDbContext>();
-			optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
-			_context = new ShareMeDbContext(optionsBuilder.Options);
-			_userManager = userManager;
+			_photoService = photoService;
+			_userService = userService;
 		}
 
 		[Authorize]
 		public async Task<IActionResult> Index()
 		{
-			var userId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
-			var photos = _context.Photos
-				.Where(p => p.UserId == userId)
-				.ToList();
+			var userName = (await _userService.GetUserAsync(HttpContext.User)).UserName;
+			var photos = _photoService.GetUserPhotos(userName);
 
 			return View("Photos", photos);
 		}

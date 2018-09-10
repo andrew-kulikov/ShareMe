@@ -59,6 +59,8 @@ namespace ShareMe
 
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
+			services.AddScoped<IPhotoService, PhotoService>();
+			services.AddScoped<IUserService, UserService>();
 
 			services.AddMvc();
 		}

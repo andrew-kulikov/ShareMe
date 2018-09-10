@@ -6,24 +6,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ShareMe.Core;
 using ShareMe.Core.Models;
+using ShareMe.Services;
 using ShareMe.ViewModels.PhotoViewModels;
 
 namespace ShareMe.Controllers
 {
 	public class PhotosController : Controller
 	{
-		private readonly ShareMeDbContext _context;
-		private readonly UserManager<AspNetUsers> _userManager;
-		private IConfiguration _configuration;
+		private readonly IPhotoService _photoService;
+		private readonly IUserService _userService;
 
-		public PhotosController(UserManager<AspNetUsers> userManager, IConfiguration configuration)
+		public PhotosController(IPhotoService photoService, IUserService userService)
 		{
-			_configuration = configuration;
-
-			var optionsBuilder = new DbContextOptionsBuilder<ShareMeDbContext>();
-			optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
-			_context = new ShareMeDbContext(optionsBuilder.Options);
-			_userManager = userManager;
+			_photoService = photoService;
+			_userService = userService;
 		}
 
 		[Authorize]
@@ -41,7 +37,7 @@ namespace ShareMe.Controllers
 			if (!ModelState.IsValid)
 				return View(viewModel);
 
-			var user = await _userManager.GetUserAsync(HttpContext.User);
+			var user = await _userService.GetUserAsync(HttpContext.User);
 
 			var photo = new Photo
 			{
@@ -50,8 +46,7 @@ namespace ShareMe.Controllers
 				UserId = user.Id
 			};
 
-			_context.Photos.Add(photo);
-			await _context.SaveChangesAsync();
+			_photoService.AddPhoto(photo);
 
 			return RedirectToAction("Index", "Home");
 		}
