@@ -10,8 +10,8 @@ using ShareMe.Core;
 namespace ShareMe.Core.Migrations
 {
     [DbContext(typeof(ShareMeDbContext))]
-    [Migration("20180910192303_NewMigration")]
-    partial class NewMigration
+    [Migration("20180910193619_AddFollowingTable")]
+    partial class AddFollowingTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

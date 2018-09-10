@@ -8,6 +8,7 @@
     <Compile Remove="Migrations\20180907174639_ChangePhotoTable.cs" />
     <Compile Remove="Migrations\20180907175004_ChangePhotoTable.cs" />
     <Compile Remove="Migrations\20180910174648_AddFollowingsTable.cs" />
+    <Compile Remove="Migrations\20180910193017_NewLife.cs" />
   </ItemGroup>
 
   <ItemGroup>
