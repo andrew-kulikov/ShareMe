@@ -39,5 +39,10 @@ namespace ShareMe.Core
 
 		public DbSet<Photo> Photos { get; set; }
 		public DbSet<Following> Followings { get; set; }
+		public DbSet<Tag> Tags { get; set; }
+		public DbSet<PhotoTag> PhotoTags { get; set; }
+		public DbSet<Comment> Comments { get; set; }
+		public DbSet<Rating> Ratings { get; set; }
+		public DbSet<RatingType> RatingTypes { get; set; }
 	}
 }
