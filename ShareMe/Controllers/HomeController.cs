@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,7 @@ namespace ShareMe.Controllers
 			_userManager = userManager;
 		}
 
+		[Authorize]
 		public async Task<IActionResult> Index()
 		{
 			var userId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
