@@ -1,9 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ShareMe.Core.Models
 {
 	public class Photo
 	{
+		public Photo()
+		{
+			Tags = new HashSet<PhotoTag>();
+		}
 
 		public int Id { get; set; }
 	
@@ -17,5 +22,7 @@ namespace ShareMe.Core.Models
 
 		[Required]
 		public string UserId { get; set; }
+
+		public ICollection<PhotoTag> Tags { get; set; }
 	}
 }
