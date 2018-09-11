@@ -33,16 +33,32 @@ namespace ShareMe.Core
 				.WithOne(r => r.Photo)
 				.OnDelete(DeleteBehavior.Restrict);
 
+			builder.Entity<Photo>()
+				.HasMany(p => p.Ratings)
+				.WithOne(r => r.Photo);
+
+			builder.Entity<AspNetUsers>()
+				.HasMany(u => u.Comments)
+				.WithOne(r => r.User);
+
+			builder.Entity<AspNetUsers>()
+				.HasMany(u => u.Photos)
+				.WithOne(r => r.User);
+
+			builder.Entity<AspNetUsers>()
+				.HasMany(u => u.Ratings)
+				.WithOne(r => r.User);
 
 			base.OnModelCreating(builder);
 		}
 
-		public DbSet<Photo> Photos { get; set; }
-		public DbSet<Following> Followings { get; set; }
-		public DbSet<Tag> Tags { get; set; }
-		public DbSet<PhotoTag> PhotoTags { get; set; }
-		public DbSet<Comment> Comments { get; set; }
-		public DbSet<Rating> Ratings { get; set; }
-		public DbSet<RatingType> RatingTypes { get; set; }
+		public virtual DbSet<Photo> Photos { get; set; }
+		public virtual DbSet<Following> Followings { get; set; }
+		public virtual DbSet<Tag> Tags { get; set; }
+		public virtual DbSet<PhotoTag> PhotoTags { get; set; }
+		public virtual DbSet<Comment> Comments { get; set; }
+		public virtual DbSet<Rating> Ratings { get; set; }
+		public virtual DbSet<RatingType> RatingTypes { get; set; }
+		public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
 	}
 }

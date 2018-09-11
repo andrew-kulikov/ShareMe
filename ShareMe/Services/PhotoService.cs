@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using ShareMe.Core;
 using ShareMe.Core.Models;
-using System;
 using System.Linq;
 
 namespace ShareMe.Services
@@ -16,13 +15,20 @@ namespace ShareMe.Services
 			var optionsBuilder = new DbContextOptionsBuilder<ShareMeDbContext>();
 			optionsBuilder.UseSqlServer(configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
 			_context = new ShareMeDbContext(optionsBuilder.Options);
-			
 		}
 
-		public Photo GetPhoto(int id) => _context.Photos.FirstOrDefault(p => p.Id == id);
+		public Photo GetPhoto(int id) => _context.Photos
+			.Include(p => p.Ratings)
+			.ThenInclude(r => r.User)
+			.Include(p => p.User)
+			.FirstOrDefault(p => p.Id == id);
 
 		public IQueryable<Photo> GetUserPhotos(string userName) => 
-			_context.Photos.Where(p => p.User.UserName == userName);
+			_context.Photos
+				.Include(p => p.User)
+				.Include(p => p.Comments)
+				.Include(p => p.Ratings)
+				.Where(p => p.User.UserName == userName);
 
 		public void AddPhoto(Photo photo)
 		{

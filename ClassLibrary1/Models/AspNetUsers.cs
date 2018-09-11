@@ -10,10 +10,13 @@ namespace ShareMe.Core.Models
 			Followings = new HashSet<Following>();
 			Followers = new HashSet<Following>();
 			Comments = new HashSet<Comment>();
+			Photos = new HashSet<Photo>();
 		}
 
-		public ICollection<Following> Followings { get; set; }
-		public ICollection<Following> Followers { get; set; }
-		public ICollection<Comment> Comments { get; set; }
+		public virtual ICollection<Following> Followings { get; set; }
+		public virtual ICollection<Following> Followers { get; set; }
+		public virtual ICollection<Comment> Comments { get; set; }
+		public virtual ICollection<Rating> Ratings { get; set; }
+		public virtual ICollection<Photo> Photos { get; set; }
 	}
 }

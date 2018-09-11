@@ -6,8 +6,8 @@ namespace ShareMe.Core.Models
 	{
 		public int Id { get; set; }
 
-		public Photo Photo { get; set; }
-		public Tag Tag { get; set; }
+		public virtual Photo Photo { get; set; }
+		public virtual Tag Tag { get; set; }
 
 		[Required]
 		public int PhotoId { get; set; }

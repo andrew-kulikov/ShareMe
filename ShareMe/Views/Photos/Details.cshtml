@@ -1,13 +1,41 @@
 ﻿@model ShareMe.Core.Models.Photo
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <h2>Details</h2>
-<img src="@Model.Url" alt="photo"/>
-<div>@Model.Description</div>
-<div>
-	<a asp-action="Index" asp-controller="Home">Back</a>
+
+<div class="col-md-6">
+	<button id="img">
+		<img src="@Model.Url" alt="photo" />
+	</button>
+	<div>@Model.Description</div>
+	<div>
+		<a asp-action="Index" asp-controller="Home">Back</a>
+	</div>
+	<div>
+		@Model.User.UserName
+	</div>
 </div>
+<div class="col-md-6">
+	<div class="form-group">
+		<label for="comment">Comment</label>
+		<input type="text" name="comment" id="comment" class="form-control"/>
+		<button type="submit" class="btn btn-primary" id="commentButton">Comment</button>
+	</div>
+</div>
+
+
+@section Scripts {
+	<script>
+		$(document).ready(() => {
+			$("#img").click(e => {
+				$.post("/api/photos/like/@Model.Id")
+					.done(() => console.log("ok"))
+					.fail(() => console.log("fail"));
+			});
+		});
+	</script>
+}
 

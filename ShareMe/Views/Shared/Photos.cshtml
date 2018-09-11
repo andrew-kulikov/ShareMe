@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShareMe.Core.Models.Photo>
+﻿@model ShareMe.ViewModels.PhotoViewModels.PhotosViewModel
 
 @{
 	ViewData["Title"] = "Photos";
@@ -9,14 +9,47 @@
 @if (Model != null)
 {
 	<div class="photos">
-		@foreach (var photo in Model)
+		@foreach (var photo in Model.Photos)
 		{
-			
-			<a href="@Url.Action("Details", "Photos", new { id = photo.Id })" class="photo-container" 
-			   style="background-image: url('@photo.Url');">
-			
+		<div>
+			<a href="@Url.Action("Details", "Photos", new { id = photo.Id })" class="photo-container"
+			   style="background-image: url('@photo.Url');" alt="kek">
 			</a>
+			@photo.User.UserName
+			@if (!Model.Followings.Contains(photo.UserId))
+			{
+				<button id="follow" data-user-id="@photo.UserId" class="btn btn-info">Follow</button>
+			}
+			else
+			{
+				<button id="follow" data-user-id="@photo.UserId" class="btn btn-default">Following</button>
+			}
+		</div>
 		}
 	</div>
+}
+
+@section Scripts
+	{
+	<script>
+		$(document).ready(() => {
+			$("#follow").click(e => {
+				var button = $(e.target);
+				var followeeId = button.attr("data-user-id");
+				if (button.hasClass("btn-info")) {
+					$.post("/api/followings/add/" + followeeId)
+						.done(() => button.toggleClass("btn-info").toggleClass("btn-default").text("Following"))
+						.fail(() => "fail");
+				} else {
+					$.ajax({
+						url: "/api/followings/delete/" + followeeId,
+						method: "DELETE"
+					})
+						.done(() => button.toggleClass("btn-info").toggleClass("btn-default").text("Follow"))
+						.fail(() => "fail");;
+				}
+			});
+		});
+	</script>
 }
 

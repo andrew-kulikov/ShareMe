@@ -7,8 +7,8 @@ namespace ShareMe.Core.Models
 	{
 		public int Id { get; set; }
 
-		public AspNetUsers Follower { get; set; }
-		public AspNetUsers Followee { get; set; }
+		public virtual AspNetUsers Follower { get; set; }
+		public virtual AspNetUsers Followee { get; set; }
 
 		[Key]
 		[Column(Order = 1)]

@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ShareMe.Services;
+using ShareMe.ViewModels.PhotoViewModels;
 
 namespace ShareMe.Controllers
 {
@@ -17,20 +18,32 @@ namespace ShareMe.Controllers
 	{
 		private readonly IPhotoService _photoService;
 		private readonly IUserService _userService;
+		private readonly IFollowingService _followingService;
 
-		public HomeController(IPhotoService photoService, IUserService userService)
+		public HomeController(IPhotoService photoService, 
+			IUserService userService, IFollowingService followingService)
 		{
 			_photoService = photoService;
 			_userService = userService;
+			_followingService = followingService;
 		}
 
 		[Authorize]
 		public async Task<IActionResult> Index()
 		{
-			var userName = (await _userService.GetUserAsync(HttpContext.User)).UserName;
+			var user = await _userService.GetUserAsync(HttpContext.User);
+			var userName = user.UserName;
 			var photos = _photoService.GetUserPhotos(userName);
+			var followings = _followingService.GetUserFollowings(user.Id)
+				.ToLookup(f => f.FolloweeId);
 
-			return View("Photos", photos);
+			var viewModel = new PhotosViewModel
+			{
+				Photos = photos.ToList(),
+				Followings = followings
+			};
+
+			return View("Photos", viewModel);
 		}
 
 		public IActionResult About()

@@ -6,8 +6,8 @@ namespace ShareMe.Core.Models
 	{
 		public int Id { get; set; }
 
-		public AspNetUsers User { get; set; }
-		public Photo Photo { get; set; }
+		public virtual AspNetUsers User { get; set; }
+		public virtual Photo Photo { get; set; }
 
 		[Required]
 		public string UserId { get; set; }

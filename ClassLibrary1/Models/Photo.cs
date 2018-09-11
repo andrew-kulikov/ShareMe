@@ -20,13 +20,13 @@ namespace ShareMe.Core.Models
 		[StringLength(1000)]
 		public string Description { get; set; }
 
-		public AspNetUsers User { get; set; }
+		public virtual AspNetUsers User { get; set; }
 
 		[Required]
 		public string UserId { get; set; }
 
-		public ICollection<PhotoTag> Tags { get; set; }
-		public ICollection<Rating> Ratings { get; set; }
-		public ICollection<Comment> Comments { get; set; }
+		public virtual ICollection<PhotoTag> Tags { get; set; }
+		public virtual ICollection<Rating> Ratings { get; set; }
+		public virtual ICollection<Comment> Comments { get; set; }
 	}
 }

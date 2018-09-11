@@ -58,6 +58,8 @@ namespace ShareMe
 			services.AddTransient<IEmailSender, EmailSender>();
 			services.AddScoped<IPhotoService, PhotoService>();
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IRatingService, RatingService>();
+			services.AddScoped<IFollowingService, FollowingService>();
 
 			services.AddMvc();
 		}

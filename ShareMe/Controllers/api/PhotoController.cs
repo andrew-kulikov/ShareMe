@@ -1,46 +1,55 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ShareMe.Core;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using ShareMe.Core.Models;
+using ShareMe.Services;
+using System.Threading.Tasks;
 
 namespace ShareMe.Controllers.api
 {
-	[Produces("application/json")]
 	[Route("/api/photos")]
 	public class PhotoController : Controller
 	{
-		private ShareMeDbContext _context;
-		private readonly UserManager<AspNetUsers> _userManager;
+		private readonly IPhotoService _photoService;
+		private readonly IUserService _userService;
+		private readonly IRatingService _ratingService;
 
-		public PhotoController(UserManager<AspNetUsers> userManager)
+
+		public PhotoController(IPhotoService photoService,
+			IUserService userService, IRatingService ratingService)
 		{
-			_context = new ShareMeDbContext(new DbContextOptions<ShareMeDbContext>());
-			_userManager = userManager;
-
+			_photoService = photoService;
+			_userService = userService;
+			_ratingService = ratingService;
 		}
 
-		[HttpPost("add")]
-		public async Task<ActionResult> AddPhoto([FromBody]string url)
+		//TODO: move to ratings controller
+		[HttpPost]
+		[Route("like/{id:int}")]
+		public async Task<ActionResult> LikePhoto(int id)
 		{
-			var userName = User.Identity.Name;
+			var photo = _photoService.GetPhoto(id);
 
-			var user = await _userManager.GetUserAsync(HttpContext.User);
+			var user = await _userService.GetUserAsync(HttpContext.User);
 
-			return Ok(user);
-		}
+			var rating = _ratingService.GetRating(user.Id, id, "Like");
 
-		[Authorize]
-		[HttpGet]
-		public async Task<ActionResult> UserCheck()
-		{
-			var userName = User.Identity.Name;
-			var user = await _userManager.GetUserAsync(HttpContext.User);
+			if (rating != null)
+			{
+				_ratingService.RemoveRating(rating);
+				return Ok();
+			}
 
-			return Ok(user);
+			var typeId = _ratingService.GetRatingType("Like").Id;
+
+			var like = new Rating
+			{
+				PhotoId = photo.Id,
+				UserId = user.Id,
+				TypeId = typeId
+			};
+
+			_ratingService.AddRating(like);
+
+			return Ok();
 		}
 
 	}

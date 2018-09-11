@@ -1,0 +1,13 @@
+{
+  "name": "asp.net",
+  "registry": "https://registry.bower.io",
+  "dependencies": {
+    "bootstrap": "v4.1.3",
+    "jquery-validation": "1.18.0",
+    "jquery-validation-unobtrusive": "v3.2.10"
+  },
+  "resolutions": {
+    "bootstrap": "v4.1.3",
+    "jquery-validation-unobtrusive": "v3.2.10"
+  }
+}
