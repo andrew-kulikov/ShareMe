@@ -7,5 +7,6 @@ namespace ShareMe.ViewModels.PhotoViewModels
 		public Photo Photo { get; set; }
 		public bool Following { get; set; }
 		public bool Liked { get; set; }
+		public int LikesCount { get; set; }
 	}
 }

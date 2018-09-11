@@ -16,6 +16,7 @@
 				<i id="like-img" class="fa fa-heart" @(Model.Liked ? "liked" : "") 
 				   style="color: @(Model.Liked ? "red" : "black")"></i>
 			</a>
+			<span id="likes">@Model.LikesCount</span>
 		</div>
 		<div>
 			<a asp-action="Index" asp-controller="Home">Back</a>
@@ -59,6 +60,8 @@
 							method: "DELETE"
 						})
 						.done(() => {
+							var count = parseInt($("#likes").html());
+							$("#likes").html(count - 1);
 							$(likeImg).removeAttr("liked");
 							$(likeImg).css("color", "black");
 						})
@@ -66,7 +69,8 @@
 				} else {
 					$.post("/api/photos/like/@Model.Photo.Id")
 						.done(() => {
-							
+							var count = parseInt($("#likes").html());
+							$("#likes").html(count + 1);
 							$(likeImg).attr("liked", "1");
 							$(likeImg).css("color", "red");
 						})

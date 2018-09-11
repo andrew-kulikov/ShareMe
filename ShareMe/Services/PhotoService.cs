@@ -19,7 +19,9 @@ namespace ShareMe.Services
 
 		public Photo GetPhoto(int id) => _context.Photos
 			.Include(p => p.Ratings)
-			.ThenInclude(r => r.User)
+				.ThenInclude(r => r.User)
+			.Include(p => p.Ratings)
+				.ThenInclude(r => r.Type)
 			.Include(p => p.User)
 			.FirstOrDefault(p => p.Id == id);
 

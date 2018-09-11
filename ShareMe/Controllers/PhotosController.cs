@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShareMe.Core.Models;
 using ShareMe.Services;
 using ShareMe.ViewModels.PhotoViewModels;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShareMe.Controllers
@@ -59,12 +60,14 @@ namespace ShareMe.Controllers
 			var user = await _userService.GetUserAsync(HttpContext.User);
 			var following = _followingService.IsFollowing(user.Id, photo.UserId);
 			var liked = _ratingService.RatingExists(user.Id, id, "Like");
+			var likesCount = photo.Ratings.Count(r => r.Type.Name == "Like");
 
 			var viewModel = new PhotoDetailsViewModel
 			{
 				Photo = photo,
 				Following = following,
-				Liked = liked
+				Liked = liked,
+				LikesCount = likesCount
 			};
 
 			return View(viewModel);
