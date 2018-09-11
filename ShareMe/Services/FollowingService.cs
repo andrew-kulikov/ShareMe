@@ -27,6 +27,10 @@ namespace ShareMe.Services
 		public IQueryable<Following> GetUserFollowings(string userId) =>
 			_context.Followings.Where(f => f.FollowerId == userId);
 
+		public bool IsFollowing(string followerId, string followeeId) =>
+			_context.Followings.Any(f => f.FolloweeId == followeeId &&
+			                             f.FollowerId == followerId);
+
 		public void SaveFollowing(Following following)
 		{
 			_context.Followings.Add(following);

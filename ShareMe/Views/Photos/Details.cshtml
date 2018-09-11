@@ -1,4 +1,4 @@
-﻿@model ShareMe.Core.Models.Photo
+﻿@model ShareMe.ViewModels.PhotoViewModels.PhotoDetailsViewModel
 
 @{
 	ViewData["Title"] = "Details";
@@ -9,17 +9,31 @@
 <div class="row">
 	<div class="col col-sm-6">
 		<button id="img">
-			<img width="100%" src="@Model.Url" alt="photo" />
+			<img width="100%" src="@Model.Photo.Url" alt="photo" />
 		</button>
-		<div>@Model.Description</div>
+		
 		<div>
 			<a asp-action="Index" asp-controller="Home">Back</a>
 		</div>
-		<div>
-			@Model.User.UserName
-		</div>
 	</div>
 	<div class="col col-sm-6">
+		<div class="row">
+			<div class="col col-sm-6">
+				@if (!Model.Following)
+				{
+					<button id="follow" data-user-id="@Model.Photo.UserId" class="btn btn-info">Follow</button>
+				}
+				else
+				{
+					<button id="follow" data-user-id="@Model.Photo.UserId" class="btn btn-default">Following</button>
+				}
+			</div>
+			<div class="col col-sm-6">
+				@Model.Photo.User.UserName
+			</div>
+		</div>
+		<div>@Model.Photo.Description</div>
+		<hr />
 		<div class="form-group">
 			<label for="comment">Comment</label>
 			<input type="text" name="comment" id="comment" class="form-control" />
@@ -33,9 +47,25 @@
 	<script>
 		$(document).ready(() => {
 			$("#img").click(e => {
-				$.post("/api/photos/like/@Model.Id")
+				$.post("/api/photos/like/@Model.Photo.Id")
 					.done(() => console.log("ok"))
 					.fail(() => console.log("fail"));
+			});
+			$("#follow").click(e => {
+				var button = $(e.target);
+				var followeeId = button.attr("data-user-id");
+				if (button.hasClass("btn-info")) {
+					$.post("/api/followings/add/" + followeeId)
+						.done(() => button.toggleClass("btn-info").toggleClass("btn-default").text("Following"))
+						.fail(() => "fail");
+				} else {
+					$.ajax({
+							url: "/api/followings/delete/" + followeeId,
+							method: "DELETE"
+						})
+						.done(() => button.toggleClass("btn-info").toggleClass("btn-default").text("Follow"))
+						.fail(() => "fail");;
+				}
 			});
 		});
 	</script>

@@ -11,11 +11,14 @@ namespace ShareMe.Controllers
 	{
 		private readonly IPhotoService _photoService;
 		private readonly IUserService _userService;
+		private readonly IFollowingService _followingService;
 
-		public PhotosController(IPhotoService photoService, IUserService userService)
+		public PhotosController(IPhotoService photoService, 
+			IUserService userService, IFollowingService followingService)
 		{
 			_photoService = photoService;
 			_userService = userService;
+			_followingService = followingService;
 		}
 
 		[Authorize]
@@ -48,10 +51,19 @@ namespace ShareMe.Controllers
 		}
 
 		[Route("id:int")]
-		public ActionResult Details(int id)
+		public async Task<ActionResult> Details(int id)
 		{
 			var photo = _photoService.GetPhoto(id);
-			return View(photo);
+			var user = await _userService.GetUserAsync(HttpContext.User);
+			var following = _followingService.IsFollowing(user.Id, photo.UserId);
+
+			var viewModel = new PhotoDetailsViewModel
+			{
+				Photo = photo,
+				Following = following
+			};
+
+			return View(viewModel);
 		}
 	}
 }
