@@ -11,20 +11,24 @@
 	<div class="photos">
 		@foreach (var photo in Model.Photos)
 		{
-		<div>
-			<a href="@Url.Action("Details", "Photos", new { id = photo.Id })" class="photo-container"
-			   style="background-image: url('@photo.Url');" alt="kek">
-			</a>
-			@photo.User.UserName
-			@if (!Model.Followings.Contains(photo.UserId))
-			{
-				<button id="follow" data-user-id="@photo.UserId" class="btn btn-info">Follow</button>
-			}
-			else
-			{
-				<button id="follow" data-user-id="@photo.UserId" class="btn btn-default">Following</button>
-			}
-		</div>
+			<div class="card" style="margin-top: 20px">
+				<div class="card-body">
+					<a href="@Url.Action("Details", "Photos", new {id = photo.Id})" class="photo-container"
+					   style="background-image: url('@photo.Url');" alt="kek">
+					</a>
+				</div>
+				<div class="card-footer">
+					@photo.User.UserName
+					@if (!Model.Followings.Contains(photo.UserId))
+					{
+						<button id="follow" data-user-id="@photo.UserId" class="btn btn-info">Follow</button>
+					}
+					else
+					{
+						<button id="follow" data-user-id="@photo.UserId" class="btn btn-default">Following</button>
+					}
+				</div>
+			</div>
 		}
 	</div>
 }

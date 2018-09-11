@@ -6,23 +6,25 @@
 
 <h2>Details</h2>
 
-<div class="col-md-6">
-	<button id="img">
-		<img src="@Model.Url" alt="photo" />
-	</button>
-	<div>@Model.Description</div>
-	<div>
-		<a asp-action="Index" asp-controller="Home">Back</a>
+<div class="row">
+	<div class="col col-sm-6">
+		<button id="img">
+			<img width="100%" src="@Model.Url" alt="photo" />
+		</button>
+		<div>@Model.Description</div>
+		<div>
+			<a asp-action="Index" asp-controller="Home">Back</a>
+		</div>
+		<div>
+			@Model.User.UserName
+		</div>
 	</div>
-	<div>
-		@Model.User.UserName
-	</div>
-</div>
-<div class="col-md-6">
-	<div class="form-group">
-		<label for="comment">Comment</label>
-		<input type="text" name="comment" id="comment" class="form-control"/>
-		<button type="submit" class="btn btn-primary" id="commentButton">Comment</button>
+	<div class="col col-sm-6">
+		<div class="form-group">
+			<label for="comment">Comment</label>
+			<input type="text" name="comment" id="comment" class="form-control" />
+			<button type="submit" class="btn btn-primary" id="commentButton">Comment</button>
+		</div>
 	</div>
 </div>
 
