@@ -8,15 +8,13 @@
 
 <div class="row">
 	<div class="col col-sm-6">
-		<button id="img">
-			<img width="100%" src="@Model.Photo.Url" alt="photo" />
-		</button>
+		
+		<img width="100%" src="@Model.Photo.Url" alt="photo" />
+		
 		<div style="margin-top: 10px">
 			<a id="like" style="cursor: pointer">
-				<img id="like-img" height="35" width="35"
-					 @(Model.Liked ? "liked" : "")
-					 src="@(Model.Liked ? "images/heart.png" : "images/emptyHeart.png")"
-					 alt="like" />
+				<i id="like-img" class="fa fa-heart" @(Model.Liked ? "liked" : "") 
+				   style="color: @(Model.Liked ? "red" : "black")"></i>
 			</a>
 		</div>
 		<div>
@@ -62,7 +60,7 @@
 						})
 						.done(() => {
 							$(likeImg).removeAttr("liked");
-							$(likeImg).attr("src", "images/emptyHeart.png");
+							$(likeImg).css("color", "black");
 						})
 						.fail(() => console.log("fail"));
 				} else {
@@ -70,7 +68,7 @@
 						.done(() => {
 							
 							$(likeImg).attr("liked", "1");
-							$(likeImg).attr("src", "images/heart.png");
+							$(likeImg).css("color", "red");
 						})
 						.fail(() => console.log("fail"));
 				}
