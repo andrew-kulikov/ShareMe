@@ -12,13 +12,15 @@ namespace ShareMe.Controllers
 		private readonly IPhotoService _photoService;
 		private readonly IUserService _userService;
 		private readonly IFollowingService _followingService;
+		private readonly IRatingService _ratingService;
 
-		public PhotosController(IPhotoService photoService, 
+		public PhotosController(IPhotoService photoService, IRatingService ratingService,
 			IUserService userService, IFollowingService followingService)
 		{
 			_photoService = photoService;
 			_userService = userService;
 			_followingService = followingService;
+			_ratingService = ratingService;
 		}
 
 		[Authorize]
@@ -56,11 +58,13 @@ namespace ShareMe.Controllers
 			var photo = _photoService.GetPhoto(id);
 			var user = await _userService.GetUserAsync(HttpContext.User);
 			var following = _followingService.IsFollowing(user.Id, photo.UserId);
+			var liked = _ratingService.RatingExists(user.Id, id, "Like");
 
 			var viewModel = new PhotoDetailsViewModel
 			{
 				Photo = photo,
-				Following = following
+				Following = following,
+				Liked = liked
 			};
 
 			return View(viewModel);

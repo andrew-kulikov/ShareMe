@@ -27,16 +27,11 @@ namespace ShareMe.Controllers.api
 		public async Task<ActionResult> LikePhoto(int id)
 		{
 			var photo = _photoService.GetPhoto(id);
-
 			var user = await _userService.GetUserAsync(HttpContext.User);
-
 			var rating = _ratingService.GetRating(user.Id, id, "Like");
 
 			if (rating != null)
-			{
-				_ratingService.RemoveRating(rating);
-				return Ok();
-			}
+				return BadRequest();
 
 			var typeId = _ratingService.GetRatingType("Like").Id;
 
@@ -52,5 +47,18 @@ namespace ShareMe.Controllers.api
 			return Ok();
 		}
 
+		//TODO: move to ratings controller
+		[HttpDelete]
+		[Route("dislike/{id:int}")]
+		public async Task<ActionResult> DislikePhoto(int id)
+		{
+			var user = await _userService.GetUserAsync(HttpContext.User);
+			var rating = _ratingService.GetRating(user.Id, id, "Like");
+
+			if (rating == null) return NotFound();
+
+			_ratingService.RemoveRating(rating);
+			return Ok();
+		}
 	}
 }

@@ -11,7 +11,14 @@
 		<button id="img">
 			<img width="100%" src="@Model.Photo.Url" alt="photo" />
 		</button>
-		
+		<div style="margin-top: 10px">
+			<a id="like" style="cursor: pointer">
+				<img id="like-img" height="35" width="35"
+					 @(Model.Liked ? "liked" : "")
+					 src="@(Model.Liked ? "images/heart.png" : "images/emptyHeart.png")"
+					 alt="like" />
+			</a>
+		</div>
 		<div>
 			<a asp-action="Index" asp-controller="Home">Back</a>
 		</div>
@@ -46,10 +53,27 @@
 @section Scripts {
 	<script>
 		$(document).ready(() => {
-			$("#img").click(e => {
-				$.post("/api/photos/like/@Model.Photo.Id")
-					.done(() => console.log("ok"))
-					.fail(() => console.log("fail"));
+			$("#like").click(() => {
+				var likeImg = $("#like-img");
+				if ($(likeImg)[0].hasAttribute("liked")) {
+					$.ajax({
+							url: "/api/photos/dislike/@Model.Photo.Id",
+							method: "DELETE"
+						})
+						.done(() => {
+							$(likeImg).removeAttr("liked");
+							$(likeImg).attr("src", "images/emptyHeart.png");
+						})
+						.fail(() => console.log("fail"));
+				} else {
+					$.post("/api/photos/like/@Model.Photo.Id")
+						.done(() => {
+							
+							$(likeImg).attr("liked", "1");
+							$(likeImg).attr("src", "images/heart.png");
+						})
+						.fail(() => console.log("fail"));
+				}
 			});
 			$("#follow").click(e => {
 				var button = $(e.target);
