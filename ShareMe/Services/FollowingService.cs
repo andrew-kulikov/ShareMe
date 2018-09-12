@@ -27,6 +27,8 @@ namespace ShareMe.Services
 		public IQueryable<Following> GetUserFollowings(string userId) =>
 			_context.Followings.Where(f => f.FollowerId == userId);
 
+		public IQueryable<Following> GetAllFollowings() => _context.Followings;
+
 		public bool IsFollowing(string followerId, string followeeId) =>
 			_context.Followings.Any(f => f.FolloweeId == followeeId &&
 			                             f.FollowerId == followerId);

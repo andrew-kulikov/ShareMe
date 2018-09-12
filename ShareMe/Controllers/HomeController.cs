@@ -33,7 +33,7 @@ namespace ShareMe.Controllers
 		{
 			var user = await _userService.GetUserAsync(HttpContext.User);
 			var userName = user.UserName;
-			var photos = _photoService.GetUserPhotos(userName);
+			var photos = _photoService.GetAllPhotos();
 			var followings = _followingService.GetUserFollowings(user.Id)
 				.ToLookup(f => f.FolloweeId);
 

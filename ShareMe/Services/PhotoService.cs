@@ -32,6 +32,12 @@ namespace ShareMe.Services
 				.Include(p => p.Ratings)
 				.Where(p => p.User.UserName == userName);
 
+		public IQueryable<Photo> GetAllPhotos() => 
+			_context.Photos
+				.Include(p => p.User)
+				.Include(p => p.Comments)
+				.Include(p => p.Ratings);
+
 		public void AddPhoto(Photo photo)
 		{
 			_context.Photos.Add(photo);

@@ -4,22 +4,26 @@
 	ViewData["Title"] = "Photos";
 }
 
-
-<h2>Photos</h2>
 @if (Model != null)
 {
 	<div class="photos">
 		@foreach (var photo in Model.Photos)
 		{
 			<div class="card" style="margin-top: 20px">
+				<div class="card-header">
+					
+						<img height="30" width="30" class="rounded-circle" src="@photo.Url" />
+				
+					@photo.User.UserName
+				</div>
 				<div class="card-body">
 					<a href="@Url.Action("Details", "Photos", new {id = photo.Id})" class="photo-container"
 					   style="background-image: url('@photo.Url');" alt="kek">
 					</a>
 				</div>
 				<div class="card-footer">
-					@photo.User.UserName
 					
+
 				</div>
 			</div>
 		}
