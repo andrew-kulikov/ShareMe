@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ShareMe.Core;
 using ShareMe.Core.Models;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ShareMe.Services
 {
@@ -25,8 +23,15 @@ namespace ShareMe.Services
 			_context = new ShareMeDbContext(optionsBuilder.Options);
 		}
 
-		public Task<AspNetUsers> GetUserAsync(ClaimsPrincipal claim) => _userManager.GetUserAsync(claim);
-		public Task<AspNetUsers> GetUserById(string userId) => Task.Run(() => 
+		public Task<AspNetUsers> GetUserAsync(ClaimsPrincipal claim) => Task.Run(() =>
+			_context.AspNetUsers
+				.Include(u => u.Followers)
+				.Include(u => u.Followings)
+				.Include(u => u.Photos)
+				.Include(u => u.Ratings)
+				.SingleOrDefault(u => u.UserName == claim.Identity.Name));
+
+		public Task<AspNetUsers> GetUserById(string userId) => Task.Run(() =>
 			_context.AspNetUsers.SingleOrDefault(u => u.Id == userId));
 	}
 }

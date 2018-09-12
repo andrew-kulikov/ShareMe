@@ -1,0 +1,38 @@
+﻿@model ShareMe.ViewModels.PhotoViewModels.MyPhotosViewModel
+
+@{
+	ViewData["Title"] = "My";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row m-t-40 profile-header align-items-center">
+	<div class="col col-md-6">
+		<img class="rounded-circle profile-img-lg" src="~/images/profile.png" alt="user logo" />
+		<span>@Model.UserName</span>
+	</div>
+	<div class="col col-md-6 align-items-center">
+		<div class="row align-content-center">
+			<span class="col col-md-4">@Model.Photos.Count Posts</span>
+			<a class="col col-md-4">@Model.FollowersCount Followers</a>
+			<a class="col col-md-4">@Model.FolloweesCount Followings</a>
+		</div>
+	</div>
+</div>
+
+@if (Model != null)
+{
+	<div class="photos">
+		@foreach (var photo in Model.Photos)
+		{
+
+			
+			<a href="@Url.Action("Details", "Photos", new {id = photo.Id})" 
+			   class="my-photo-container m-t-20"
+			   style="background-image: url('@photo.Url');" 
+			   alt="kek">
+			</a>
+
+		}
+	</div>
+}
+

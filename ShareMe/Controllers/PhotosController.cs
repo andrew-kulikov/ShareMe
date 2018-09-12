@@ -67,7 +67,26 @@ namespace ShareMe.Controllers
 				Photo = photo,
 				Following = following,
 				Liked = liked,
-				LikesCount = likesCount
+				LikesCount = likesCount,
+				IsCreator = user.Id == photo.UserId
+			};
+
+			return View(viewModel);
+		}
+
+		public async Task<ActionResult> My()
+		{
+			var user = await _userService.GetUserAsync(HttpContext.User);
+			var photos = _photoService.GetUserPhotos(user.UserName);
+			var followersCount = user.Followers.Count;
+			var followeesCount = user.Followings.Count;
+
+			var viewModel = new MyPhotosViewModel
+			{
+				Photos = photos.ToList(),
+				UserName = user.UserName,
+				FolloweesCount = followeesCount,
+				FollowersCount = followersCount
 			};
 
 			return View(viewModel);
