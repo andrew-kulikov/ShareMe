@@ -6,12 +6,12 @@
 
 <div class="row m-t-40">
 	<div class="col col-md-6">
-		
+
 		<img class="details-img" src="@Model.Photo.Url" alt="photo" />
-		
+
 		<div class="m-t-10">
 			<a id="like" style="cursor: pointer">
-				<i id="like-img" class="fa fa-heart" @(Model.Liked ? "liked" : "") 
+				<i id="like-img" class="fa fa-heart" @(Model.Liked ? "liked" : "")
 				   style="color: @(Model.Liked ? "red" : "black")"></i>
 			</a>
 			<span id="likes">@Model.LikesCount</span>
@@ -22,11 +22,19 @@
 			<div class="col col-md-6">
 				@if (!Model.Following)
 				{
-					<button id="follow" data-user-id="@Model.Photo.UserId" class="btn btn-info">Follow</button>
+					<button id="follow"
+							data-user-id="@Model.Photo.UserId"
+							class="btn btn-info js-toggle-following">
+						Follow
+					</button>
 				}
 				else
 				{
-					<button id="follow" data-user-id="@Model.Photo.UserId" class="btn btn-default">Following</button>
+					<button id="follow"
+							data-user-id="@Model.Photo.UserId"
+							class="btn btn-default js-toggle-following">
+						Following
+					</button>
 				}
 			</div>
 			<div class="col col-md-6">
@@ -45,6 +53,7 @@
 
 
 @section Scripts {
+	<script src="~/js/site.min.js" asp-append-version="true"></script>
 	<script>
 		$(document).ready(() => {
 			$("#like").click(() => {
@@ -72,22 +81,7 @@
 						.fail(() => console.log("fail"));
 				}
 			});
-			$("#follow").click(e => {
-				var button = $(e.target);
-				var followeeId = button.attr("data-user-id");
-				if (button.hasClass("btn-info")) {
-					$.post("/api/followings/add/" + followeeId)
-						.done(() => button.toggleClass("btn-info").toggleClass("btn-default").text("Following"))
-						.fail(() => "fail");
-				} else {
-					$.ajax({
-							url: "/api/followings/delete/" + followeeId,
-							method: "DELETE"
-						})
-						.done(() => button.toggleClass("btn-info").toggleClass("btn-default").text("Follow"))
-						.fail(() => "fail");;
-				}
-			});
+			PhotoDetailsController.init();
 		});
 	</script>
 }

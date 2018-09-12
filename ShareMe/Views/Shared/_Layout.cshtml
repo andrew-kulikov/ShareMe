@@ -30,16 +30,16 @@
 			<ul class="navbar-nav mr-auto">
 				<li><a asp-area="" asp-controller="Photos" asp-action="Create" class="nav-link">Add photo</a></li>
 			</ul>
-			
+
 			@await Html.PartialAsync("_LoginPartial")
-			
+
 		</div>
 	</nav>
 	<div class="container body-content">
 		@RenderBody()
 		<div class="footer">
-		<hr />
-			<footer >
+			<hr />
+			<footer>
 				<p>&copy; 2018 - ShareMe</p>
 			</footer>
 		</div>
@@ -65,6 +65,7 @@
 		</script>
 		<script src="~/js/site.min.js" asp-append-version="true"></script>
 	</environment>
+
 
 	@RenderSection("Scripts", required: false)
 </body>
