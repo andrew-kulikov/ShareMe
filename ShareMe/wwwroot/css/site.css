@@ -53,6 +53,21 @@
     height: 600px;
 }
 
+.details-img {
+    width: 100%;
+    min-width: 300px;
+}
+
+.profile-img {
+    height: 30px;
+    width: 30px;
+}
+
+.m-t-10 { margin-top: 10px; }
+.m-t-20 { margin-top: 20px; }
+.m-t-30 { margin-top: 30px; }
+.m-t-40 { margin-top: 40px; }
+
 /*Bootstrap overrides*/
 .card-body {
     padding: 0;

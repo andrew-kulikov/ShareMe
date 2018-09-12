@@ -4,12 +4,12 @@
 	ViewData["Title"] = "Details";
 }
 
-<div class="row" style="margin-top: 40px">
-	<div class="col col-md-6" style="min-width: 300px">
+<div class="row m-t-40">
+	<div class="col col-md-6">
 		
-		<img width="100%" src="@Model.Photo.Url" alt="photo" />
+		<img class="details-img" src="@Model.Photo.Url" alt="photo" />
 		
-		<div style="margin-top: 10px">
+		<div class="m-t-10">
 			<a id="like" style="cursor: pointer">
 				<i id="like-img" class="fa fa-heart" @(Model.Liked ? "liked" : "") 
 				   style="color: @(Model.Liked ? "red" : "black")"></i>

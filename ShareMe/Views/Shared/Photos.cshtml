@@ -9,11 +9,9 @@
 	<div class="photos">
 		@foreach (var photo in Model.Photos)
 		{
-			<div class="card" style="margin-top: 20px">
+			<div class="card m-t-20">
 				<div class="card-header">
-					
-						<img height="30" width="30" class="rounded-circle" src="@photo.Url" />
-				
+						<img class="rounded-circle profile-img" src="@photo.Url" alt="@photo.User.UserName"/>
 					@photo.User.UserName
 				</div>
 				<div class="card-body">
