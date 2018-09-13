@@ -13,7 +13,10 @@
 					@UserManager.GetUserName(User)
 				</a>
 				<div class="dropdown-menu" aria-labelledby="accountDropdown">
-					<a class="dropdown-item" href="@Url.Action("My", "Photos")">My photos</a>
+					<a class="dropdown-item" 
+					   asp-controller="Photos" 
+					   asp-action="UserPhotos" 
+					   asp-route-userName="@UserManager.GetUserName(User)">My photos</a>
 					<div role="separator" class="dropdown-divider"></div>
 					<a class="dropdown-item" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Manage</a>
 					<a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>

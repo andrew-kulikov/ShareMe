@@ -74,23 +74,6 @@ namespace ShareMe.Controllers
 			return View(viewModel);
 		}
 
-		public async Task<ActionResult> My()
-		{
-			var user = await _userService.GetUserAsync(HttpContext.User);
-			var photos = _photoService.GetUserPhotos(user.UserName);
-			var followersCount = user.Followers.Count;
-			var followeesCount = user.Followings.Count;
-
-			var viewModel = new MyPhotosViewModel
-			{
-				Photos = photos.ToList(),
-				UserName = user.UserName,
-				FolloweesCount = followeesCount,
-				FollowersCount = followersCount
-			};
-
-			return View(viewModel);
-		}
 
 		[Route("/{userName}")]
 		public async Task<ActionResult> UserPhotos(string userName)
@@ -108,7 +91,7 @@ namespace ShareMe.Controllers
 				FollowersCount = followersCount
 			};
 
-			return View("My", viewModel);
+			return View(viewModel);
 		}
 	}
 }
