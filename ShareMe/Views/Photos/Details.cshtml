@@ -1,5 +1,4 @@
-﻿@using System.Dynamic
-@model ShareMe.ViewModels.PhotoViewModels.PhotoDetailsViewModel
+﻿@model ShareMe.ViewModels.PhotoViewModels.PhotoDetailsViewModel
 
 @{
 	ViewData["Title"] = "Details";
@@ -33,15 +32,36 @@
 					@Html.Partial("_FollowPartial", viewModel)
 				}
 			</div>
-			<div class="col col-md-6">
+			<div class="col col-md-6 text-right">
 				<a asp-controller="Photos" asp-action="UserPhotos" asp-route-userName="@Model.Photo.User.UserName">
-					@Model.Photo.User.UserName
+					<span>@Model.Photo.User.UserName</span>
 				</a>
 			</div>
 		</div>
 		<div>@Model.Photo.Description</div>
 		<div class="comment-section">
 			<input type="text" name="comment" id="comment" placeholder="Kek"  />
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title" id="modal-header">Guys</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div class="modal-body" id="modal-content">
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+
 		</div>
 	</div>
 </div>
@@ -75,6 +95,14 @@
 						})
 						.fail(() => console.log("fail"));
 				}
+			});
+			$("#likes").click(() => {
+				$.get("/api/photos/GetLikers/" + "@Model.Photo.Id")
+					.done(response => {
+						$("#modal-content").html(response);
+						$("#myModal").modal("show");
+					})
+					.fail(() => console.log("Fail"));
 			});
 			PhotoDetailsController.init();
 		});

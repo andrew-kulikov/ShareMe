@@ -3,16 +3,16 @@
 @if (!Model.Following)
 {
 	<button id="follow"
-	        data-user-id="@Model.FolloweeId"
-	        class="btn btn-info js-toggle-following">
+			data-user-id="@Model.FolloweeId"
+			class="btn btn-info js-toggle-following">
 		Follow
 	</button>
 }
 else
 {
 	<button id="follow"
-	        data-user-id="@Model.FolloweeId"
-	        class="btn btn-default js-toggle-following">
+			data-user-id="@Model.FolloweeId"
+			class="btn btn-default js-toggle-following">
 		Following
 	</button>
 }

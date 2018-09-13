@@ -12,7 +12,10 @@
 						Following = Model.Followings.Contains(user.Id),
 						FolloweeId = Model.UserId
 					};
-					@Html.Partial("_FollowPartial", viewModel)
+					if (Model.UserId != user.Id)
+					{
+						@Html.Partial("_FollowPartial", viewModel)
+					}
 				}
 			</div>
 		</li>

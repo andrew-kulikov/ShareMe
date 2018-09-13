@@ -197,6 +197,9 @@
 #num_followers {
     cursor: pointer;
 }
+#num_following {
+    cursor: pointer;
+}
 
 .images-container {
     background-color: #fff;
@@ -227,5 +230,6 @@
     max-height: 400px;
     margin-bottom: 10px;
     overflow: scroll;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }

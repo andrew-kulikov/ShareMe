@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShareMe.Core.Models;
 using ShareMe.Services;
+using ShareMe.ViewModels;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShareMe.Controllers.api
@@ -59,6 +61,34 @@ namespace ShareMe.Controllers.api
 
 			_ratingService.RemoveRating(rating);
 			return Ok();
+		}
+
+		[HttpGet]
+		[Route("GetLikers/{photoId:int}")]
+		public async Task<ActionResult> GetLikers(int photoId)
+		{
+			var photo = _photoService.GetPhoto(photoId);
+			var user = await _userService.GetUserByName(photo.User.UserName);
+			var likersIds = photo.Ratings
+				.Select(f => f.UserId)
+				.ToList();
+
+			var likers = photo.Ratings
+				.Select(r => r.User)
+				.ToList();
+
+			var followings = user.Followings
+				.Where(f => likersIds.Contains(f.FolloweeId))
+				.ToLookup(f => f.FolloweeId);
+			
+			var viewModel = new UserListViewModel
+			{
+				Followings = followings,
+				UserId = user.Id,
+				Users = likers
+			};
+
+			return PartialView("_UserList", viewModel);
 		}
 	}
 }
