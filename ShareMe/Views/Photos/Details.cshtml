@@ -5,20 +5,20 @@
 	ViewData["Title"] = "Details";
 }
 
-<div class="row m-t-40">
-	<div class="col col-md-6">
+<div class="details-content m-t-40">
+	<div class="details-left">
 
-		<img class="details-img" src="@Model.Photo.Url" alt="photo" />
+		<div class="photo-container" style="background-image: url(@Model.Photo.Url" alt="photo" ></div>
 
 		<div class="m-t-10">
 			<a id="like" style="cursor: pointer">
-				<i id="like-img" class="fa fa-heart" @(Model.Liked ? "liked" : "")
+				<i id="like-img" class="fa fa-heart fa-2x" @(Model.Liked ? "liked" : "")
 				   style="color: @(Model.Liked ? "red" : "black")"></i>
 			</a>
 			<span id="likes">@Model.LikesCount</span>
 		</div>
 	</div>
-	<div class="col col-md-6">
+	<div class="details-right">
 		<div class="row">
 			<div class="col col-md-6">
 				@{
@@ -27,7 +27,6 @@
 						Following = Model.Following,
 						FolloweeId = Model.Photo.UserId
 					};
-
 				}
 				@if (!Model.IsCreator)
 				{
@@ -35,7 +34,9 @@
 				}
 			</div>
 			<div class="col col-md-6">
-				@Model.Photo.User.UserName
+				<a asp-controller="Photos" asp-action="UserPhotos" asp-route-userName="@Model.Photo.User.UserName">
+					@Model.Photo.User.UserName
+				</a>
 			</div>
 		</div>
 		<div>@Model.Photo.Description</div>

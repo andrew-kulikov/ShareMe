@@ -1,6 +1,6 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    background-color: #f4f4f4;
 }
 
 /* Wrapping element */
@@ -63,8 +63,22 @@
 }
 
 .details-img {
-    width: 100%;
-    min-width: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: block;
+    width: 500px;
+    height: 500px;
+}
+
+.details-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.details-right {
+    min-width: 350px;
 }
 
 .profile-img {
@@ -81,12 +95,18 @@
     width: 100%;
 }
 
+#likes {
+    font-size: 1.4em;
+}
+
 .comment-section {
     position: relative;
     border-top: 1px solid #efefef;
-    padding: 26px 26px 26px 0;
+    padding: 10px 20px;
     margin-top: 4px;
     overflow: hidden;
+    border-radius: 28px;
+    background-color: #ffffff;
 }
 
 #comment {
@@ -102,6 +122,88 @@
     resize: none;
 }
 
+.rela-block {
+    display: block;
+    position: relative;
+    margin: auto;
+}
+
+.floated {
+    display: inline-block;
+    position: relative;
+}
+
+.profile-card {
+    width: calc(100% - 40px);
+    padding-top: 100px;
+    margin: 120px auto 30px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px -2px rgba(0,0,0,0.26);
+    border-radius: 10px;
+}
+.profile-pic {
+    position: absolute;
+    top: -90px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    height: 180px;
+    width: 180px;
+    border: 10px solid #fff;
+    border-radius: 100%;
+    background: url("https://pbs.twimg.com/media/CdbiubzVIAANj8J.jpg") center no-repeat;
+    background-size: cover;
+}
+
+.profile-name-container {
+    margin: 0 auto 10px;
+    padding: 10px;
+    text-align: center;
+}
+.user-name {
+    font-family: "Montserrat";
+    font-size: 24px;
+    letter-spacing: 3px;
+    font-weight: 400;
+    line-height: 30px;
+    margin-bottom: 12px;
+}
+.user-desc {
+    letter-spacing: 1px;
+    color: #999;
+}
+.profile-card-stats {
+    height: 75px;
+    padding: 10px 0px;
+    text-align: center;
+    overflow: hidden;
+}
+.profile-stat {
+    height: 100%;
+    width: 30%;
+}
+.profile-stat:after {
+    color: #999;
+}
+.works::after {
+    content: "posts";
+}
+.followers::after {
+    content: "followers";
+}
+.following::after {
+    content: "following";
+}
+
+.images-container {
+    background-color: #fff;
+    box-shadow: 0 2px 6px -2px rgba(0,0,0,0.26);
+    padding: 10px;
+    margin: 0 20px;
+    width: auto;
+    border-radius: 10px;
+}
+
 
 .m-t-10 { margin-top: 10px; }
 .m-t-20 { margin-top: 20px; }
@@ -111,4 +213,16 @@
 /*Bootstrap overrides*/
 .card-body {
     padding: 0;
+}
+
+.navbar {
+    outline: none;
+    box-shadow: 0px 2px 18px rgba(0,0,0,0.3);
+}
+
+.list-group {
+    max-height: 400px;
+    margin-bottom: 10px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }

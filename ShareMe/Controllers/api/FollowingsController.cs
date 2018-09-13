@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShareMe.Core.Models;
 using ShareMe.Services;
 using System.Threading.Tasks;
+using ShareMe.ViewModels;
 
 namespace ShareMe.Controllers.api
 {
@@ -52,5 +54,21 @@ namespace ShareMe.Controllers.api
 			return Ok();
 		}
 
+		[HttpGet]
+		[Route("{userName}/followers")]
+		public async Task<ActionResult> GetFollowers(string userName)
+		{
+			var user = await _userService.GetUserAsync(HttpContext.User);
+			var followings = user.Followers
+				.ToLookup(f => f.FollowerId);
+
+			var viewModel = new UserListViewModel
+			{
+				Followings = followings,
+				UserId = user.Id
+			};
+
+			return PartialView("_UserList", viewModel);
+		}
 	}
 }

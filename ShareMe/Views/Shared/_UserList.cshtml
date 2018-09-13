@@ -1,16 +1,20 @@
 ﻿@model UserListViewModel
 
-@foreach (var user in Model.Users)
-{
-	<div class="row">
-		<div class="col col-md-6">@user.UserName</div>
-		@{
-			var viewModel = new FollowingViewModel
-			{
-				Following = Model.Followings.Contains(user.Id),
-				FolloweeId = Model.UserId
-			};
-			@Html.Partial("_FollowPartial", viewModel)
-		}
-	</div>
-}
+<ul class="list-group">
+	@foreach (var user in Model.Users)
+	{
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col col-md-6">@user.UserName</div>
+				@{
+					var viewModel = new FollowingViewModel
+					{
+						Following = Model.Followings.Contains(user.Id),
+						FolloweeId = Model.UserId
+					};
+					@Html.Partial("_FollowPartial", viewModel)
+				}
+			</div>
+		</li>
+	}
+</ul>

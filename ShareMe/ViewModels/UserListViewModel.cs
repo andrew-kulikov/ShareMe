@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ShareMe.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ShareMe.ViewModels
 {
-    public class UserListViewModel
-    {
-    }
+	public class UserListViewModel
+	{
+		public string UserId { get; set; }
+		public ILookup<string, Following> Followings { get; set; }
+		public ICollection<AspNetUsers> Users { get; set; }
+	}
 }

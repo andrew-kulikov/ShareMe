@@ -8,5 +8,6 @@ namespace ShareMe.Services
 	{
 		Task<AspNetUsers> GetUserAsync(ClaimsPrincipal claim);
 		Task<AspNetUsers> GetUserById(string userId);
+		Task<AspNetUsers> GetUserByName(string userName);
 	}
 }

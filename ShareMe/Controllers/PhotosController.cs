@@ -91,5 +91,24 @@ namespace ShareMe.Controllers
 
 			return View(viewModel);
 		}
+
+		[Route("/{userName}")]
+		public async Task<ActionResult> UserPhotos(string userName)
+		{
+			var user = await _userService.GetUserByName(userName);
+			var photos = _photoService.GetUserPhotos(userName);
+			var followersCount = user.Followers.Count;
+			var followeesCount = user.Followings.Count;
+
+			var viewModel = new MyPhotosViewModel
+			{
+				Photos = photos.ToList(),
+				UserName = userName,
+				FolloweesCount = followeesCount,
+				FollowersCount = followersCount
+			};
+
+			return View("My", viewModel);
+		}
 	}
 }

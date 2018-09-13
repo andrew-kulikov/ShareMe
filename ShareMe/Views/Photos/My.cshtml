@@ -5,34 +5,77 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row m-t-40 profile-header align-items-center">
-	<div class="col col-md-6">
-		<img class="rounded-circle profile-img-lg" src="~/images/profile.png" alt="user logo" />
-		<span>@Model.UserName</span>
+<div class="rela-block profile-card">
+	<div class="profile-pic" id="profile_pic">
 	</div>
-	<div class="col col-md-6 align-items-center">
-		<div class="row align-content-center">
-			<span class="col col-md-4">@Model.Photos.Count Posts</span>
-			<a class="col col-md-4">@Model.FollowersCount Followers</a>
-			<a class="col col-md-4">@Model.FolloweesCount Followings</a>
-		</div>
+	<div class="rela-block profile-name-container">
+		<div class="rela-block user-name" id="user_name">@Model.UserName</div>
+		<div class="rela-block user-desc" id="user_description">User Description Here</div>
+	</div>
+	<div class="rela-block profile-card-stats">
+		<div class="floated profile-stat works" id="num_works">
+			@Model.Photos.Count
+				<br>
+			</div>
+		<div class="floated profile-stat followers" id="num_followers">
+			<a id="followers">@Model.FollowersCount</a>
+				<br>
+			</div>
+		<div class="floated profile-stat following" id="num_following">
+			@Model.FolloweesCount
+				<br>
+			</div>
 	</div>
 </div>
 
 @if (Model != null)
 {
-	<div class="photos">
+	<div class="photos images-container">
 		@foreach (var photo in Model.Photos)
 		{
-
-			
 			<a href="@Url.Action("Details", "Photos", new {id = photo.Id})" 
 			   class="my-photo-container m-t-20"
 			   style="background-image: url('@photo.Url');" 
-			   alt="kek">
+			   alt="@photo.Description">
 			</a>
-
 		}
 	</div>
+}
+
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+	  
+			<div class="modal-header">
+				<h4 class="modal-title" id="modal-header">Guys</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+		
+			<div class="modal-body" id="modal-content">
+				
+			</div>
+		
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+	<script>
+		$(document).ready(() => {
+			$("#followers").click(() => {
+				$.get("/Following/GetFollowers/" + "@Model.UserName")
+					.done(response => {
+						$("#modal-content").html(response);
+						$("#myModal").modal("show");
+					})
+					.fail(() => console.log("Fail"));
+			});
+		});
+	</script>
 }
 
