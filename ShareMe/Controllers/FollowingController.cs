@@ -37,5 +37,26 @@ namespace ShareMe.Controllers
 
 			return PartialView("_UserList", viewModel);
 		}
+
+		[HttpGet]
+		[Route("/Following/GetFollowees/{userName}")]
+		public async Task<ActionResult> GetFollowees(string userName)
+		{
+			var user = await _userService.GetUserByName(userName);
+			var followings = user.Followings
+				.ToLookup(f => f.FolloweeId);
+			var followees = user.Followings
+				.Select(f => f.Followee)
+				.ToList();
+
+			var viewModel = new UserListViewModel
+			{
+				Followings = followings,
+				UserId = user.Id,
+				Users = followees
+			};
+
+			return PartialView("_UserList", viewModel);
+		}
 	}
 }

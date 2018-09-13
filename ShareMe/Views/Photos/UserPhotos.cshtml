@@ -67,8 +67,17 @@
 {
 	<script>
 		$(document).ready(() => {
-			$("#followers").click(() => {
+			$("#num_followers").click(() => {
 				$.get("/Following/GetFollowers/" + "@Model.UserName")
+					.done(response => {
+						$("#modal-content").html(response);
+						$("#myModal").modal("show");
+					})
+					.fail(() => console.log("Fail"));
+			});
+
+			$("#num_following").click(() => {
+				$.get("/Following/GetFollowees/" + "@Model.UserName")
 					.done(response => {
 						$("#modal-content").html(response);
 						$("#myModal").modal("show");

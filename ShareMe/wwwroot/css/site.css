@@ -194,6 +194,9 @@
 .following::after {
     content: "following";
 }
+#num_followers {
+    cursor: pointer;
+}
 
 .images-container {
     background-color: #fff;
