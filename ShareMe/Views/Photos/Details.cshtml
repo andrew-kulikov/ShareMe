@@ -107,9 +107,7 @@
 					.fail(() => console.log("Fail"));
 			});
 			$("#comment").keydown(e => {
-				console.log("kek");
 				if (e.which === 13) {
-					console.log("enter");
 					$.post("/api/photos/comment",
 						{
 							message: $("#comment").text(),

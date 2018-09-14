@@ -1,0 +1,7 @@
+﻿@using ShareMe.Core.Models
+@model ICollection<ShareMe.Core.Models.Comment>
+
+@foreach (var comment in Model)
+{
+	<p>@comment</p>
+}
