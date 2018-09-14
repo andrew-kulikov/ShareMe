@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShareMe.Core.Models;
+using ShareMe.Dtos;
 using ShareMe.Services;
 using ShareMe.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
-using ShareMe.Dtos;
 
 namespace ShareMe.Controllers.api
 {
@@ -100,6 +100,7 @@ namespace ShareMe.Controllers.api
 			{
 				PhotoId	= dto.PhotoId,
 				UserId = dto.CommenterId,
+				Message = dto.Message
 			};
 
 			_photoService.AddComment(comment);
