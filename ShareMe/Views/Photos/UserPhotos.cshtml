@@ -68,7 +68,7 @@
 	<script>
 		$(document).ready(() => {
 			$("#num_followers").click(() => {
-				$.get("/Following/GetFollowers/" + "@Model.UserName")
+				$.get("/followings/" + "@Model.UserName" + "/followers")
 					.done(response => {
 						$("#modal-content").html(response);
 						$("#myModal").modal("show");
@@ -77,7 +77,7 @@
 			});
 
 			$("#num_following").click(() => {
-				$.get("/Following/GetFollowees/" + "@Model.UserName")
+				$.get("/followings/" + "@Model.UserName" + "/followees")
 					.done(response => {
 						$("#modal-content").html(response);
 						$("#myModal").modal("show");

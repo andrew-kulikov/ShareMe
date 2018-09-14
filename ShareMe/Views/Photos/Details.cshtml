@@ -7,7 +7,7 @@
 <div class="details-content m-t-40">
 	<div class="details-left">
 
-		<div class="photo-container" style="background-image: url(@Model.Photo.Url" alt="photo" ></div>
+		<div class="photo-container" style="background-image: url(@Model.Photo.Url" alt="photo"></div>
 
 		<div class="m-t-10">
 			<a id="like" style="cursor: pointer">
@@ -40,7 +40,9 @@
 		</div>
 		<div>@Model.Photo.Description</div>
 		<div class="comment-section">
-			<input type="text" name="comment" id="comment" placeholder="Kek"  />
+
+			<input type="text" id="comment" placeholder="Wow! ..." />
+
 		</div>
 	</div>
 </div>
@@ -103,6 +105,20 @@
 						$("#myModal").modal("show");
 					})
 					.fail(() => console.log("Fail"));
+			});
+			$("#comment").keydown(e => {
+				console.log("kek");
+				if (e.which === 13) {
+					console.log("enter");
+					$.post("/api/photos/comment",
+						{
+							message: $("#comment").text(),
+							commenterId: "@Model.Photo.UserId",
+							photoId: "@Model.Photo.Id"
+						})
+						.done(() => console.log("success"))
+						.fail(() => console.log("fail"));
+				}
 			});
 			PhotoDetailsController.init();
 		});

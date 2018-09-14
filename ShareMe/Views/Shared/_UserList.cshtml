@@ -10,7 +10,7 @@
 					var viewModel = new FollowingViewModel
 					{
 						Following = Model.Followings.Contains(user.Id),
-						FolloweeId = Model.UserId
+						FolloweeId = user.Id
 					};
 					if (Model.UserId != user.Id)
 					{
@@ -21,3 +21,10 @@
 		</li>
 	}
 </ul>
+
+<script src="~/js/site.min.js" asp-append-version="true"></script>
+<script>
+	$(document).ready(() => {
+		PhotoDetailsController.init();
+	});
+</script>

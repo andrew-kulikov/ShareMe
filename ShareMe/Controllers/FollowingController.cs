@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShareMe.Controllers
 {
+	[Route("followings")]
 	public class FollowingController : Controller
 	{
 		private readonly IUserService _userService;
@@ -18,16 +19,20 @@ namespace ShareMe.Controllers
 		}
 
 		[HttpGet]
-		[Route("/Following/GetFollowers/{userName}")]
+		[Route("{userName}/followers")]
 		public async Task<ActionResult> GetFollowers(string userName)
 		{
 			var user = await _userService.GetUserByName(userName);
-			var followings = user.Followers
-				.ToLookup(f => f.FollowerId);
 			var followers = user.Followers
 				.Select(f => f.Follower)
 				.ToList();
 
+			var followingIds = user.Followings.Select(f => f.FolloweeId);
+
+			var followings = user.Followers
+				.Where(f => followingIds.Contains(f.FollowerId))
+				.ToLookup(f => f.FollowerId);
+			
 			var viewModel = new UserListViewModel
 			{
 				Followings = followings,
@@ -39,12 +44,13 @@ namespace ShareMe.Controllers
 		}
 
 		[HttpGet]
-		[Route("/Following/GetFollowees/{userName}")]
+		[Route("{userName}/followees")]
 		public async Task<ActionResult> GetFollowees(string userName)
 		{
 			var user = await _userService.GetUserByName(userName);
 			var followings = user.Followings
 				.ToLookup(f => f.FolloweeId);
+
 			var followees = user.Followings
 				.Select(f => f.Followee)
 				.ToList();

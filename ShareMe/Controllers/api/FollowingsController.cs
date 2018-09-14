@@ -53,22 +53,5 @@ namespace ShareMe.Controllers.api
 
 			return Ok();
 		}
-
-		[HttpGet]
-		[Route("{userName}/followers")]
-		public async Task<ActionResult> GetFollowers(string userName)
-		{
-			var user = await _userService.GetUserAsync(HttpContext.User);
-			var followings = user.Followers
-				.ToLookup(f => f.FollowerId);
-
-			var viewModel = new UserListViewModel
-			{
-				Followings = followings,
-				UserId = user.Id
-			};
-
-			return PartialView("_UserList", viewModel);
-		}
 	}
 }

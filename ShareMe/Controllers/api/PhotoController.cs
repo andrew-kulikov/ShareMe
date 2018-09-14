@@ -4,6 +4,7 @@ using ShareMe.Services;
 using ShareMe.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using ShareMe.Dtos;
 
 namespace ShareMe.Controllers.api
 {
@@ -89,6 +90,21 @@ namespace ShareMe.Controllers.api
 			};
 
 			return PartialView("_UserList", viewModel);
+		}
+
+		[HttpPost]
+		[Route("comment")]
+		public ActionResult AddComment(CommentDto dto)
+		{
+			var comment = new Comment
+			{
+				PhotoId	= dto.PhotoId,
+				UserId = dto.CommenterId,
+			};
+
+			_photoService.AddComment(comment);
+
+			return Ok();
 		}
 	}
 }

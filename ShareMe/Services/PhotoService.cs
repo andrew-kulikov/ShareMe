@@ -43,5 +43,11 @@ namespace ShareMe.Services
 			_context.Photos.Add(photo);
 			_context.SaveChangesAsync();
 		}
+
+		public void AddComment(Comment comment)
+		{
+			_context.Comments.Add(comment);
+			_context.SaveChanges();
+		}
 	}
 }

@@ -9,5 +9,6 @@ namespace ShareMe.Services
 		IQueryable<Photo> GetUserPhotos(string userName);
 		IQueryable<Photo> GetAllPhotos();
 		void AddPhoto(Photo photo);
+		void AddComment(Comment comment);
 	}
 }
