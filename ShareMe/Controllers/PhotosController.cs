@@ -53,7 +53,7 @@ namespace ShareMe.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
-		[Route("id:int")]
+		[Route("{id:int}")]
 		public async Task<ActionResult> Details(int id)
 		{
 			var photo = _photoService.GetPhoto(id);
@@ -68,7 +68,8 @@ namespace ShareMe.Controllers
 				Following = following,
 				Liked = liked,
 				LikesCount = likesCount,
-				IsCreator = user.Id == photo.UserId
+				IsCreator = user.Id == photo.UserId,
+				UserId = user.Id
 			};
 
 			return View(viewModel);
@@ -92,6 +93,17 @@ namespace ShareMe.Controllers
 			};
 
 			return View(viewModel);
+		}
+
+		[HttpGet]
+		[Route("{photoId:int}/comments")]
+		public ActionResult GetComments(int photoId)
+		{
+			var comments = _photoService.GetPhoto(photoId)
+				.Comments
+				.ToList();
+
+			return PartialView("_Comments", comments);
 		}
 	}
 }

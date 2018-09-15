@@ -22,6 +22,8 @@ namespace ShareMe.Services
 				.ThenInclude(r => r.User)
 			.Include(p => p.Ratings)
 				.ThenInclude(r => r.Type)
+			.Include(p => p.Comments)
+				.ThenInclude(p => p.User)
 			.Include(p => p.User)
 			.FirstOrDefault(p => p.Id == id);
 
@@ -29,6 +31,7 @@ namespace ShareMe.Services
 			_context.Photos
 				.Include(p => p.User)
 				.Include(p => p.Comments)
+					.ThenInclude(p => p.User)
 				.Include(p => p.Ratings)
 				.Where(p => p.User.UserName == userName);
 

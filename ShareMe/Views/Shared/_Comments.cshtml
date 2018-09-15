@@ -3,5 +3,5 @@
 
 @foreach (var comment in Model)
 {
-	<p>@comment</p>
+	<p>@comment.Message, @comment.User.UserName</p>
 }

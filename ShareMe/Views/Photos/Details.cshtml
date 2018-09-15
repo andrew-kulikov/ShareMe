@@ -44,6 +44,9 @@
 			<input type="text" id="comment" placeholder="Wow! ..." />
 
 		</div>
+		<div id="comments" style="background-color: white; margin-top: 10px; border-radius: 20px; padding: 20px">
+			@Html.Partial("_Comments", Model.Photo.Comments)
+		</div>
 	</div>
 </div>
 
@@ -109,17 +112,20 @@
 			$("#comment").keydown(e => {
 				if (e.which === 13) {
 					$.post("/api/photos/comment",
-						{
-							message: $("#comment").text(),
-							commenterId: "@Model.Photo.UserId",
-							photoId: "@Model.Photo.Id"
-						})
-						.done(() => console.log("success"))
+							{
+								message: $("#comment").val(),
+								commenterId: "@Model.UserId",
+								photoId: "@Model.Photo.Id"
+							})
+						//will append only last
+						.done(() => 
+							$.get("/@Model.Photo.Id/comments/")
+								.done(response => $("#comments").html(response)))
 						.fail(() => console.log("fail"));
-				}
-			});
-			PhotoDetailsController.init();
+			}
 		});
+		PhotoDetailsController.init();
+	});
 	</script>
 }
 

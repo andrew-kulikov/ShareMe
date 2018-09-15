@@ -31,6 +31,8 @@ namespace ShareMe.Services
 					.ThenInclude(f => f.Followee)
 				.Include(u => u.Photos)
 				.Include(u => u.Ratings)
+				.Include(u => u.Comments)
+					.ThenInclude(c => c.User)
 				.SingleOrDefault(u => u.UserName == claim.Identity.Name));
 
 		public Task<AspNetUsers> GetUserByName(string userName) => Task.Run(() =>
@@ -41,6 +43,8 @@ namespace ShareMe.Services
 					.ThenInclude(f => f.Followee)
 				.Include(u => u.Photos)
 				.Include(u => u.Ratings)
+				.Include(u => u.Comments)
+					.ThenInclude(c => c.User)
 				.SingleOrDefault(u => u.UserName == userName));
 
 		public Task<AspNetUsers> GetUserById(string userId) => Task.Run(() =>
