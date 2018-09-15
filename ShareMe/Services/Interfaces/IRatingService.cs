@@ -1,7 +1,7 @@
-﻿using ShareMe.Core.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ShareMe.Core.Models;
 
-namespace ShareMe.Services
+namespace ShareMe.Services.Interfaces
 {
 	public interface IRatingService
 	{

@@ -6,6 +6,7 @@ using ShareMe.Core.Models;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ShareMe.Services.Interfaces;
 
 namespace ShareMe.Services
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using ShareMe.Core;
 using ShareMe.Core.Models;
 using ShareMe.Services;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,6 +56,21 @@ namespace ShareMe
 
 				});
 
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.Cookie.HttpOnly = true;
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+				options.LoginPath = "/Account/Login"; 
+				options.LogoutPath = "/Account/Logout"; 
+				options.AccessDeniedPath = "/Account/AccessDenied"; 
+				options.SlidingExpiration = true;
+			});
+
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+			});
+
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
 			services.AddScoped<IPhotoService, PhotoService>();
@@ -84,7 +99,7 @@ namespace ShareMe
 
 			app.UseAuthentication();
 
-		
+
 
 			app.UseMvc(routes =>
 			{
@@ -106,7 +121,7 @@ namespace ShareMe
 				await roleManager.CreateAsync(new IdentityRole("Admin"));
 
 			var user = await userManager.FindByEmailAsync("123@gmail.com");
-		
+
 			await userManager.AddToRoleAsync(user, "Admin");
 		}
 	}

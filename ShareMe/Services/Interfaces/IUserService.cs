@@ -1,8 +1,8 @@
-﻿using ShareMe.Core.Models;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using ShareMe.Core.Models;
 
-namespace ShareMe.Services
+namespace ShareMe.Services.Interfaces
 {
 	public interface IUserService
 	{

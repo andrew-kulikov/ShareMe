@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShareMe.Core.Models;
 using ShareMe.Services;
 using System.Threading.Tasks;
+using ShareMe.Services.Interfaces;
 using ShareMe.ViewModels;
 
 namespace ShareMe.Controllers.api

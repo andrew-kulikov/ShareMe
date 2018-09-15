@@ -21,7 +21,7 @@
         $("#likes").html(count - 1);
         $(likeImg).removeAttr("liked");
         $(likeImg).css("color", "black");
-    }
+    };
 
     var showLikers = function (response) {
         $("#modal-content").html(response);

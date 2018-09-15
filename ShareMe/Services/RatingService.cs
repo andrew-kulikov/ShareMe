@@ -4,6 +4,7 @@ using ShareMe.Core;
 using ShareMe.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
+using ShareMe.Services.Interfaces;
 
 namespace ShareMe.Services
 {

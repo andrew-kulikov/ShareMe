@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ShareMe.Services;
+using ShareMe.Services.Interfaces;
 
 namespace ShareMe.Services
 {

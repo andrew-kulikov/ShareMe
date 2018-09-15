@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ShareMe.Services;
+using ShareMe.Services.Interfaces;
 using ShareMe.ViewModels.PhotoViewModels;
 
 namespace ShareMe.Controllers

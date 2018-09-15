@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShareMe.Controllers
 {
+	[Authorize]
 	public class PhotosController : Controller
 	{
 		private readonly IPhotoService _photoService;
@@ -24,14 +25,12 @@ namespace ShareMe.Controllers
 			_ratingService = ratingService;
 		}
 
-		[Authorize]
 		public IActionResult Create()
 		{
 			var viewModel = new PhotoFormViewModel();
 			return View(viewModel);
 		}
 
-		[Authorize]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(PhotoFormViewModel viewModel)

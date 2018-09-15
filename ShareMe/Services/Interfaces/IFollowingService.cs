@@ -1,7 +1,7 @@
-﻿using ShareMe.Core.Models;
-using System.Linq;
+﻿using System.Linq;
+using ShareMe.Core.Models;
 
-namespace ShareMe.Services
+namespace ShareMe.Services.Interfaces
 {
 	public interface IFollowingService
 	{
