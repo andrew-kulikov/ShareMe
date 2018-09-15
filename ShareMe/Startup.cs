@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,7 @@ using ShareMe.Core;
 using ShareMe.Core.Models;
 using ShareMe.Services;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ShareMe
 {
@@ -65,7 +67,7 @@ namespace ShareMe
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
 		{
 			if (env.IsDevelopment())
 			{
@@ -90,6 +92,22 @@ namespace ShareMe
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+			CreateUserRoles(services).Wait();
+		}
+
+		private async Task CreateUserRoles(IServiceProvider serviceProvider)
+		{
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+			var userManager = serviceProvider.GetRequiredService<UserManager<AspNetUsers>>();
+
+			var roleCheck = await roleManager.RoleExistsAsync("Admin");
+			if (!roleCheck)
+				await roleManager.CreateAsync(new IdentityRole("Admin"));
+
+			var user = await userManager.FindByEmailAsync("123@gmail.com");
+		
+			await userManager.AddToRoleAsync(user, "Admin");
 		}
 	}
 }
