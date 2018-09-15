@@ -13,6 +13,7 @@
     "inputFiles": [
       "wwwroot/js/site.js",
       "wwwroot/js/Services/FollowingsService.js",
+      "wwwroot/js/Services/RatingsService.js",
       "wwwroot/js/Controllers/PhotoDetailsController.js"
     ],
     // Optionally specify minification options

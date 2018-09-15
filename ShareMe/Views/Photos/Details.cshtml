@@ -7,7 +7,7 @@
 <div class="details-content m-t-40">
 	<div class="details-left">
 
-		<div class="photo-container" style="background-image: url(@Model.Photo.Url" alt="photo"></div>
+		<div class="photo-container" style="background-image: url(@Model.Photo.Url)" alt="photo"></div>
 
 		<div class="m-t-10">
 			<a id="like" style="cursor: pointer">
@@ -50,6 +50,8 @@
 	</div>
 </div>
 
+<div id="data" data-photo-id="@Model.Photo.Id"></div>
+
 <div class="modal fade" id="myModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -76,31 +78,7 @@
 	<script src="~/js/site.min.js" asp-append-version="true"></script>
 	<script>
 		$(document).ready(() => {
-			$("#like").click(() => {
-				var likeImg = $("#like-img");
-				if ($(likeImg)[0].hasAttribute("liked")) {
-					$.ajax({
-							url: "/api/photos/dislike/@Model.Photo.Id",
-							method: "DELETE"
-						})
-						.done(() => {
-							var count = parseInt($("#likes").html());
-							$("#likes").html(count - 1);
-							$(likeImg).removeAttr("liked");
-							$(likeImg).css("color", "black");
-						})
-						.fail(() => console.log("fail"));
-				} else {
-					$.post("/api/photos/like/@Model.Photo.Id")
-						.done(() => {
-							var count = parseInt($("#likes").html());
-							$("#likes").html(count + 1);
-							$(likeImg).attr("liked", "1");
-							$(likeImg).css("color", "red");
-						})
-						.fail(() => console.log("fail"));
-				}
-			});
+
 			$("#likes").click(() => {
 				$.get("/api/photos/GetLikers/" + "@Model.Photo.Id")
 					.done(response => {
@@ -118,14 +96,15 @@
 								photoId: "@Model.Photo.Id"
 							})
 						//will append only last
-						.done(() => 
+						.done(() =>
 							$.get("/@Model.Photo.Id/comments/")
 								.done(response => $("#comments").html(response)))
 						.fail(() => console.log("fail"));
-			}
+				}
+
+			});
+			PhotoDetailsController.init();
 		});
-		PhotoDetailsController.init();
-	});
 	</script>
 }
 
