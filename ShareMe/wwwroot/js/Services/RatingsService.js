@@ -14,8 +14,15 @@
             .fail(fail);
     };
 
+    var getLikers = function (photoId, done, fail) {
+        $.get("/api/photos/GetLikers/" + photoId)
+            .done(done)
+            .fail(fail);
+    };
+
     return {
         like: like,
-        dislike: dislike
+        dislike: dislike,
+        getLikers: getLikers
     };
 }();

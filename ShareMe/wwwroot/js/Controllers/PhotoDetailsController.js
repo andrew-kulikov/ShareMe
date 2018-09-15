@@ -23,6 +23,11 @@
         $(likeImg).css("color", "black");
     }
 
+    var showLikers = function (response) {
+        $("#modal-content").html(response);
+        $("#myModal").modal("show");
+    };
+
     var fail = function () {
         alert("Something failed!");
     };
@@ -38,19 +43,23 @@
             followingService.unfollow(userId, doneFollowing, fail);
     };
 
-    var toggleLike = function (e) {
-        photoId = $("#data").attr("data-photo-id");
+    var toggleLike = function () {
         likeImg = $("#like-img");
-        if ($(likeImg)[0].hasAttribute("liked")) {
+        if ($(likeImg)[0].hasAttribute("liked")) 
             ratingService.dislike(photoId, doneDislike, fail);
-        } else {
+        else 
             ratingService.like(photoId, doneLike, fail);
-        }
+    };
+
+    var getLikes = function () {
+        ratingService.getLikers(photoId, showLikers, fail);
     };
 
     var init = function () {
+        photoId = $("#data").attr("data-photo-id");
         $(".js-toggle-following").click(toggleFollowing);
         $("#like").click(toggleLike);
+        $("#likes").click(getLikes);
     };
 
     return {

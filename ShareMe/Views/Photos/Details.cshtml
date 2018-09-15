@@ -78,15 +78,6 @@
 	<script src="~/js/site.min.js" asp-append-version="true"></script>
 	<script>
 		$(document).ready(() => {
-
-			$("#likes").click(() => {
-				$.get("/api/photos/GetLikers/" + "@Model.Photo.Id")
-					.done(response => {
-						$("#modal-content").html(response);
-						$("#myModal").modal("show");
-					})
-					.fail(() => console.log("Fail"));
-			});
 			$("#comment").keydown(e => {
 				if (e.which === 13) {
 					$.post("/api/photos/comment",
