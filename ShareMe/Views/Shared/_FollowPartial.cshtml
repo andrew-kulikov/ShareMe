@@ -1,11 +1,14 @@
 ﻿@model FollowingViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHtmlLocalizer<SharedResource> Localizer
 
 @if (!Model.Following)
 {
 	<button id="follow"
 			data-user-id="@Model.FolloweeId"
 			class="btn btn-info js-toggle-following">
-		Follow
+		@Localizer["Follow"]
 	</button>
 }
 else
@@ -13,6 +16,6 @@ else
 	<button id="follow"
 			data-user-id="@Model.FolloweeId"
 			class="btn btn-default js-toggle-following">
-		Following
+		@Localizer["Following"]
 	</button>
 }

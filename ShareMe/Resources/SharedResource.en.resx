@@ -123,6 +123,18 @@
   <data name="Admin page" xml:space="preserve">
     <value>Admin Page</value>
   </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="Followees" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Followers</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Following</value>
+  </data>
   <data name="Language:" xml:space="preserve">
     <value>Language:</value>
   </data>
@@ -137,6 +149,9 @@
   </data>
   <data name="My photos" xml:space="preserve">
     <value>My Photos</value>
+  </data>
+  <data name="Posts" xml:space="preserve">
+    <value>Posts</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>

@@ -185,7 +185,7 @@
 .profile-stat:after {
     color: #999;
 }
-.works::after {
+/*.works::after {
     content: "posts";
 }
 .followers::after {
@@ -193,7 +193,7 @@
 }
 .following::after {
     content: "following";
-}
+}*/
 #num_followers {
     cursor: pointer;
 }

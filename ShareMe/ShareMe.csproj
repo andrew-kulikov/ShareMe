@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-ShareMe-EE9EFEC7-400B-4186-9D95-189A9D24A5D5</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
@@ -25,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

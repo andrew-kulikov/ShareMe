@@ -123,6 +123,18 @@
   <data name="Admin page" xml:space="preserve">
     <value>Администратор</value>
   </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Подписаться</value>
+  </data>
+  <data name="Followees" xml:space="preserve">
+    <value>Подписки</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Подписчики</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Подписка оформлена</value>
+  </data>
   <data name="Language:" xml:space="preserve">
     <value>Язык:</value>
   </data>
@@ -137,6 +149,9 @@
   </data>
   <data name="My photos" xml:space="preserve">
     <value>Мои Фотокарточки</value>
+  </data>
+  <data name="Posts" xml:space="preserve">
+    <value>Записи</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
