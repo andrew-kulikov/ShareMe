@@ -1,4 +1,7 @@
 ﻿@model ShareMe.ViewModels.PhotoViewModels.PhotoDetailsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 @{
 	ViewData["Title"] = "Details";
@@ -12,7 +15,8 @@
 		<div class="m-t-10">
 			<a id="like" style="cursor: pointer">
 				<i id="like-img" class="fa fa-heart fa-2x" @(Model.Liked ? "liked" : "")
-				   style="color: @(Model.Liked ? "red" : "black")"></i>
+				   style="color: @(Model.Liked ? "red" : "black")">
+				</i>
 			</a>
 			<span id="likes">@Model.LikesCount</span>
 		</div>
@@ -41,12 +45,13 @@
 		<div>@Model.Photo.Description</div>
 		<div class="comment-section">
 
-			<input type="text" id="comment" placeholder="Wow! ..." />
+			<input type="text" id="comment" placeholder="Wow! ..."/>
 
 		</div>
 		<div id="comments" style="background-color: white; margin-top: 10px; border-radius: 20px; padding: 20px">
 			@Html.Partial("_Comments", Model.Photo.Comments)
 		</div>
+		@Localizer["kek"]
 	</div>
 </div>
 
@@ -89,7 +94,7 @@
 						//will append only last
 						.done(() =>
 							$.get("/@Model.Photo.Id/comments/")
-								.done(response => $("#comments").html(response)))
+							.done(response => $("#comments").html(response)))
 						.fail(() => console.log("fail"));
 				}
 
@@ -98,4 +103,3 @@
 		});
 	</script>
 }
-

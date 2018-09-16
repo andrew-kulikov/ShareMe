@@ -1,12 +1,18 @@
-﻿
+﻿@model ICollection<ShareMe.Core.Models.AspNetUsers>
+
 @{
 	ViewData["Title"] = "Admin";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Admin</h2>
-@if (User.IsInRole("Admin"))
-{
-	<p>Admin</p>
-}
-
+<div style="margin-top: 20px ">
+	@foreach (var user in Model)
+	{
+		<div>
+			<form asp-action="DeleteUser" asp-route-userName="@user.UserName" method="post" class="alert-link">
+				<span>@user.UserName</span>
+				<button type="submit" class="btn btn-danger">Delete</button>
+			</form>
+		</div>
+	}
+</div>

@@ -1,6 +1,7 @@
-﻿using System.Security.Claims;
+﻿using ShareMe.Core.Models;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using ShareMe.Core.Models;
 
 namespace ShareMe.Services.Interfaces
 {
@@ -9,5 +10,7 @@ namespace ShareMe.Services.Interfaces
 		Task<AspNetUsers> GetUserAsync(ClaimsPrincipal claim);
 		Task<AspNetUsers> GetUserById(string userId);
 		Task<AspNetUsers> GetUserByName(string userName);
+		Task<IQueryable<AspNetUsers>> GetAll();
+		Task DeleteUser(AspNetUsers user);
 	}
 }

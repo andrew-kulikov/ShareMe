@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,9 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 using ShareMe.Core;
 using ShareMe.Core.Models;
 using ShareMe.Services;
+using ShareMe.Services.Interfaces;
 using System;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace ShareMe
 {
@@ -56,20 +60,10 @@ namespace ShareMe
 
 				});
 
-			services.ConfigureApplicationCookie(options =>
-			{
-				options.Cookie.HttpOnly = true;
-				options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-				options.LoginPath = "/Account/Login"; 
-				options.LogoutPath = "/Account/Logout"; 
-				options.AccessDeniedPath = "/Account/AccessDenied"; 
-				options.SlidingExpiration = true;
-			});
-
-			services.AddAuthorization(options =>
-			{
-				options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-			});
+			services.AddLocalization(options => options.ResourcesPath = "Resources");
+			services.AddMvc()
+				.AddViewLocalization()
+				.AddDataAnnotationsLocalization();
 
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
@@ -78,7 +72,23 @@ namespace ShareMe
 			services.AddScoped<IRatingService, RatingService>();
 			services.AddScoped<IFollowingService, FollowingService>();
 
-			services.AddMvc();
+			services.Configure<RequestLocalizationOptions>(options =>
+			{
+				var supportedCultures = new[]
+				{
+					new CultureInfo("ru"),
+					new CultureInfo("en")
+				};
+
+				
+				options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
+
+				options.SupportedCultures = supportedCultures;
+	
+				options.SupportedUICultures = supportedCultures;
+		
+			});
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,11 +105,22 @@ namespace ShareMe
 				app.UseExceptionHandler("/Home/Error");
 			}
 
+			var supportedCultures = new[]
+			{
+				new CultureInfo("en"),
+				new CultureInfo("ru")
+			};
+
+			app.UseRequestLocalization(new RequestLocalizationOptions
+			{
+				DefaultRequestCulture = new RequestCulture("en"),
+				SupportedCultures = supportedCultures,
+				SupportedUICultures = supportedCultures
+			});
+
 			app.UseStaticFiles();
 
 			app.UseAuthentication();
-
-
 
 			app.UseMvc(routes =>
 			{

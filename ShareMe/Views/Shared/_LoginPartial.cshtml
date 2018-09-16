@@ -1,6 +1,7 @@
-@using Microsoft.AspNetCore.Identity
 @using ShareMe.Core.Models
+@using Microsoft.AspNetCore.Mvc.Localization
 
+@inject IHtmlLocalizer<SharedResource> Localizer
 @inject SignInManager<AspNetUsers> SignInManager
 @inject UserManager<AspNetUsers> UserManager
 
@@ -8,26 +9,26 @@
 {
 	<form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="nav navbar-nav ml-auto">
 		<div class="dropdown">
-				<a class="nav-link dropdown-toggle" id="accountDropdown"
-				   href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					@UserManager.GetUserName(User)
-				</a>
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
-					<a class="dropdown-item" 
-					   asp-controller="Photos" 
-					   asp-action="UserPhotos" 
-					   asp-route-userName="@UserManager.GetUserName(User)">My photos</a>
-					<div role="separator" class="dropdown-divider"></div>
-					<a class="dropdown-item" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Manage</a>
-					<a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-				</div>
+			<a class="nav-link dropdown-toggle" id="accountDropdown"
+			   href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				@UserManager.GetUserName(User)
+			</a>
+			<div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+				<a class="dropdown-item"
+				   asp-controller="Photos"
+				   asp-action="UserPhotos"
+				   asp-route-userName="@UserManager.GetUserName(User)">@Localizer["My photos"]</a>
+				<div role="separator" class="dropdown-divider"></div>
+				<a class="dropdown-item" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Manage"]</a>
+				<a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">@Localizer["Log off"]</a>
+			</div>
 		</div>
 	</form>
 }
 else
 {
 	<ul class="nav navbar-nav navbar-right">
-		<li><a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link">Register</a></li>
-		<li><a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Log in</a></li>
+		<li><a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link">@Localizer["Register"]</a></li>
+		<li><a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">@Localizer["Log in"]</a></li>
 	</ul>
 }

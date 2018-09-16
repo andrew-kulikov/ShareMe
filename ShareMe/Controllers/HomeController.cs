@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ using ShareMe.ViewModels;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using ShareMe.Services;
 using ShareMe.Services.Interfaces;
 using ShareMe.ViewModels.PhotoViewModels;
@@ -45,6 +48,18 @@ namespace ShareMe.Controllers
 			};
 
 			return View("Photos", viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult SetLanguage(string culture, string returnUrl)
+		{
+			Response.Cookies.Append(
+				CookieRequestCultureProvider.DefaultCookieName,
+				CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+				new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+			);
+
+			return LocalRedirect(returnUrl);
 		}
 
 		public IActionResult About()

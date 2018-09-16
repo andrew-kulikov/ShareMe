@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using ShareMe.Core.Models;
 using ShareMe.ViewModels.AccountViewModels;
 using ShareMe.Services;
+using ShareMe.Services.Interfaces;
 
 namespace ShareMe.Controllers
 {

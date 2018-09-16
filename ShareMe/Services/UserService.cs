@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ShareMe.Core;
 using ShareMe.Core.Models;
+using ShareMe.Services.Interfaces;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ShareMe.Services.Interfaces;
 
 namespace ShareMe.Services
 {
@@ -47,6 +47,12 @@ namespace ShareMe.Services
 				.Include(u => u.Comments)
 					.ThenInclude(c => c.User)
 				.SingleOrDefault(u => u.UserName == userName));
+
+		public Task<IQueryable<AspNetUsers>> GetAll() => Task.Run(() =>
+			_context.AspNetUsers.AsQueryable());
+
+		public Task DeleteUser(AspNetUsers user) => Task.Run(() =>
+			_context.AspNetUsers.Remove(user));
 
 		public Task<AspNetUsers> GetUserById(string userId) => Task.Run(() =>
 			_context.AspNetUsers.SingleOrDefault(u => u.Id == userId));

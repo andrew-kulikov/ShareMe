@@ -3,6 +3,7 @@ using ShareMe.Services;
 using ShareMe.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using ShareMe.Services.Interfaces;
 
 namespace ShareMe.Controllers
 {
