@@ -9,21 +9,7 @@
 	<div class="photos">
 		@foreach (var photo in Model.Photos)
 		{
-			<div class="card m-t-20">
-				<div class="card-header">
-						<img class="rounded-circle profile-img" src="@photo.Url" alt="@photo.User.UserName"/>
-					@photo.User.UserName
-				</div>
-				<div class="card-body">
-					<a href="@Url.Action("Details", "Photos", new {id = photo.Id})" class="photo-container"
-					   style="background-image: url('@photo.Url');" alt="kek">
-					</a>
-				</div>
-				<div class="card-footer">
-					
-
-				</div>
-			</div>
+			@await Component.InvokeAsync("PhotoCard", photo.Id)
 		}
 	</div>
 }

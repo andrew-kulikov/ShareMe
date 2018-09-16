@@ -1,0 +1,17 @@
+﻿@model ShareMe.Core.Models.Photo
+
+<div class="card m-t-20">
+	<div class="card-header">
+		<img class="rounded-circle profile-img" src="@Model.Url" alt="@Model.User.UserName"/>
+		@Model.User.UserName
+	</div>
+	<div class="card-body">
+		<a href="@Url.Action("Details", "Photos", new {id = Model.Id})" class="photo-container"
+		   style="background-image: url('@Model.Url');" alt="kek">
+		</a>
+	</div>
+	<div class="card-footer">
+					
+
+	</div>
+</div>

@@ -14,6 +14,9 @@ namespace ShareMe.Core.Models
 			Ratings = new HashSet<Rating>();
 		}
 
+		public string Description { get; set; }
+		public string ProfileImageUrl { get; set; }
+
 		public virtual ICollection<Following> Followings { get; set; }
 		public virtual ICollection<Following> Followers { get; set; }
 		public virtual ICollection<Comment> Comments { get; set; }
