@@ -15,7 +15,6 @@ using System;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace ShareMe
 {
@@ -117,6 +116,7 @@ namespace ShareMe
 				SupportedCultures = supportedCultures,
 				SupportedUICultures = supportedCultures
 			});
+			
 
 			app.UseStaticFiles();
 

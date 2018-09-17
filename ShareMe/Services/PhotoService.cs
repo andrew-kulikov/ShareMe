@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using ShareMe.Core;
 using ShareMe.Core.Models;
-using System.Linq;
 using ShareMe.Services.Interfaces;
+using System.Linq;
 
 namespace ShareMe.Services
 {
