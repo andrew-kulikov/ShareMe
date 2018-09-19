@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShareMe.Core.Models
@@ -16,6 +17,8 @@ namespace ShareMe.Core.Models
 	
 		[Required]
 		public string Url { get; set; }
+		
+		public DateTime Created { get; set; }
 
 		[StringLength(1000)]
 		public string Description { get; set; }

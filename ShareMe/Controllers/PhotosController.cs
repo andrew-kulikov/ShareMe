@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShareMe.Core.Models;
-using ShareMe.Services;
+using ShareMe.Services.Interfaces;
 using ShareMe.ViewModels.PhotoViewModels;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ShareMe.Services.Interfaces;
 
 namespace ShareMe.Controllers
 {
@@ -45,7 +45,8 @@ namespace ShareMe.Controllers
 			{
 				Url = viewModel.Url,
 				Description = viewModel.Description,
-				UserId = user.Id
+				UserId = user.Id,
+				Created = DateTime.Now
 			};
 
 			_photoService.AddPhoto(photo);
