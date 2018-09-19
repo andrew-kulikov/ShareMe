@@ -19,12 +19,17 @@
 	<form id="selectLanguage" asp-controller="Home"
 		  asp-action="SetLanguage" asp-route-returnUrl="@returnUrl"
 		  method="post"
-		  class="form-group" role="form">
-		<label asp-for="@requestCulture.RequestCulture.UICulture.Name">@Localizer["Language:"]</label>
-		<select name="culture"
-				onchange="this.form.submit();"
-		        asp-for="@requestCulture.RequestCulture.UICulture.Name" 
-		        asp-items="cultureItems"
-		        class="form-control"></select>
-	</form>
-</div>
+	      class="form-group row justify-content-end" 
+	      role="form">
+		<label asp-for="@requestCulture.RequestCulture.UICulture.Name"
+			   class="col-sm-3 col-form-label">@Localizer["Language:"]</label>
+
+			<div class="col-sm-5">
+				<select name="culture"
+						onchange="this.form.submit();"
+						asp-for="@requestCulture.RequestCulture.UICulture.Name"
+						asp-items="cultureItems"
+						class="form-control "></select>
+			</div>
+		</form>
+	</div>

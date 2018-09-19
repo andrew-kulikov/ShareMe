@@ -10,5 +10,6 @@ namespace ShareMe.ViewModels.PhotoViewModels
 		public int LikesCount { get; set; }
 		public bool IsCreator { get; set; }
 		public string UserId { get; set; }
+		public string Comment { get; set; }
 	}
 }

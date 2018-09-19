@@ -45,15 +45,12 @@
 		<div>@Model.Photo.Description</div>
 		<div class="comment-section">
 
-			<input type="text" id="comment" placeholder="Wow! ..." />
+			<input asp-for="Comment" type="text" id="comment" placeholder="Wow! ..." />
 
 		</div>
 		<div id="comments" style="background-color: white; margin-top: 10px; border-radius: 20px; padding: 20px">
 			@Html.Partial("_Comments", Model.Photo.Comments)
 		</div>
-		<input type="text" value="report" hidden id="reportName" />
-		<button id="publishReport">publish</button>
-		<div id="reports"></div>
 	</div>
 </div>
 
@@ -86,19 +83,12 @@
 	<script src="~/js/jquery.min.js"></script>
 	<script src="~/js/signalr-client.min.js"></script>
 	<script>
-		$(function () {
-
-			
-		});
-	</script>
-	<script>
 		$(document).ready(() => {
-			let hubUrl = 'http://localhost:5000/reportsPublisher';
-			let httpConnection = new signalR.HttpConnection(hubUrl);
-			let hubConnection = new signalR.HubConnection(httpConnection);
+			var hubUrl = 'http://localhost:5000/reportsPublisher';
+			var httpConnection = new signalR.HttpConnection(hubUrl);
+			var hubConnection = new signalR.HubConnection(httpConnection);
 
 			
-
 			hubConnection.on('OnReportPublished', data => {
 				$("#comments").html(data);
 				//$('#reports').append($('<li>').text(data));
@@ -110,7 +100,7 @@
 				if (e.which === 13) {
 					$.post("/api/photos/comment",
 							{
-								message: $("#comment").val(),
+								message: "@Model.Comment",
 								commenterId: "@Model.UserId",
 								photoId: "@Model.Photo.Id"
 							})
