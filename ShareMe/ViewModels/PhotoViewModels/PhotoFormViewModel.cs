@@ -9,5 +9,8 @@ namespace ShareMe.ViewModels.PhotoViewModels
 
 		[StringLength(1000)]
 		public string Description { get; set; }
+
+		[StringLength(1000)]
+		public string Tags { get; set; }
 	}
 }

@@ -19,6 +19,11 @@
 			@Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "My beautiful photo" })
 			@Html.ValidationMessageFor(m => m.Description)
 		</div>
+		<div class="form-group">
+			<label asp-for="Tags"></label>
+			@Html.TextBoxFor(m => m.Tags, new { @class = "form-control", placeholder = "My beautiful photo" })
+			@Html.ValidationMessageFor(m => m.Tags)
+		</div>
 		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 </div>

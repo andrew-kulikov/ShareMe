@@ -40,16 +40,20 @@ namespace ShareMe.Controllers
 				return View(viewModel);
 
 			var user = await _userService.GetUserAsync(HttpContext.User);
+			var tags = _photoService.ParseTags(viewModel.Tags);
 
 			var photo = new Photo
 			{
 				Url = viewModel.Url,
 				Description = viewModel.Description,
 				UserId = user.Id,
-				Created = DateTime.Now
+				Created = DateTime.Now,
 			};
 
 			_photoService.AddPhoto(photo);
+
+
+			await _photoService.BindTagsAsync(photo, tags);
 
 			return RedirectToAction("Index", "Home");
 		}

@@ -122,6 +122,13 @@
     resize: none;
 }
 
+#comments {
+    max-height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
 .rela-block {
     display: block;
     position: relative;

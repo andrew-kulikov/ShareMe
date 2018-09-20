@@ -45,7 +45,7 @@
 		<div>@Model.Photo.Description</div>
 		<div class="comment-section">
 
-			<input asp-for="Comment" type="text" id="comment" placeholder="Wow! ..." />
+			<input type="text" id="comment" placeholder="Wow! ..." />
 
 		</div>
 		<div id="comments" style="background-color: white; margin-top: 10px; border-radius: 20px; padding: 20px">
@@ -80,7 +80,7 @@
 
 @section Scripts {
 	<script src="~/js/site.min.js" asp-append-version="true"></script>
-	<script src="~/js/jquery.min.js"></script>
+	
 	<script src="~/js/signalr-client.min.js"></script>
 	<script>
 		$(document).ready(() => {
@@ -96,11 +96,11 @@
 
 			hubConnection.start();
 
-			$("#comment").keyup(e => {
+			$("#comment").keydown(e => {
 				if (e.which === 13) {
 					$.post("/api/photos/comment",
 							{
-								message: "@Model.Comment",
+								message: $("#comment").val(),
 								commenterId: "@Model.UserId",
 								photoId: "@Model.Photo.Id"
 							})
