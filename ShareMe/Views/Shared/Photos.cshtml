@@ -4,6 +4,16 @@
 	ViewData["Title"] = "Photos";
 }
 
+
+<div id="search-container" class="justify-content-center">	 
+	<form class="form-group" id="search-form" method="get" asp-action="Index" asp-controller="Home">
+		<input 
+			type="text" 
+			id="search-input" 
+			name="search" 
+			class="form-control" />
+	</form>
+</div>
 @if (Model != null)
 {
 	<div class="photos">
@@ -13,3 +23,13 @@
 		}
 	</div>
 }
+	<script src="~/js/jquery.min.js"></script>
+<script>
+	$.ready(() => {
+		$("#search-input").keyup(e => {
+			if (e.which === 13) {
+				getElementById('search-form').submit();
+			}
+		});
+	});
+</script>

@@ -110,5 +110,6 @@ namespace ShareMe.Controllers
 
 			return PartialView("_Comments", comments);
 		}
+
 	}
 }

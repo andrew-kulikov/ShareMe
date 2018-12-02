@@ -13,5 +13,8 @@
 	<div class="card-footer">
 		@Model.Created
 		@string.Join(", ", Model.Tags.Select(t => t.Tag.Name))
+		<p>
+		@Model.Description
+		</p>
 	</div>
 </div>

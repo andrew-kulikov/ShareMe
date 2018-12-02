@@ -1,20 +1,14 @@
-﻿using System;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using ShareMe.Core;
-using ShareMe.Core.Models;
+using ShareMe.Services.Interfaces;
 using ShareMe.ViewModels;
+using ShareMe.ViewModels.PhotoViewModels;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
-using ShareMe.Services;
-using ShareMe.Services.Interfaces;
-using ShareMe.ViewModels.PhotoViewModels;
 
 namespace ShareMe.Controllers
 {
@@ -33,11 +27,14 @@ namespace ShareMe.Controllers
 		}
 
 		[Authorize]
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index([FromQuery]string search="")
 		{
 			var user = await _userService.GetUserAsync(HttpContext.User);
 			var userName = user.UserName;
-			var photos = _photoService.GetAllPhotos();
+			var photos = _photoService.GetAllPhotos()
+				.ToList()
+				.Where(p => p.Description.Contains(search) ||
+				            p.Tags.Any(t => t.Tag.Name.Contains(search)));
 			var followings = _followingService.GetUserFollowings(user.Id)
 				.ToLookup(f => f.FolloweeId);
 
